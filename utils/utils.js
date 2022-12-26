@@ -135,7 +135,7 @@ function affichageJoueur(joueur, boolean)
 }
 
 /**
- * Modifie les caracteres non-désieré : espace et -
+ * Modifie les caracteres non-désirés : espace et -
  * @param string chaine à modifier
  * @returns {string} chaine modifiée
  */
@@ -144,10 +144,12 @@ function replace(string)
   let returned = string;
   for (let i=0; i< returned.length; i++)
   {
-    if (returned[i] === " ")
+    if (returned[i] === ' ')
       returned = replaceAt(returned, i, "_");
-    if (returned[i] === "-")
+    if (returned[i] === '-')
       returned = replaceAt(returned, i, "_");
+    if (returned[i] === '@')
+      returned = replaceAt(returned, i, "");
   }
   return returned;
 }
@@ -162,7 +164,7 @@ function replace(string)
 function replaceAt(str, index, chr) {
   if(index > str.length-1)
     return str;
-  return str.substring(0,index) + chr + str.substring(index+chr.length);
+  return str.substring(0,index) + chr + str.substring(index+1);
 }
 
 /**
