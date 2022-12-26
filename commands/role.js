@@ -10,7 +10,7 @@ module.exports = {
     .addRoleOption(option =>
       option
         .setName('role_id')
-        .setDescription('ID du role à chercher et mettre a jour')),
+        .setDescription('ID du role à chercher')),
   async execute(interaction)
   {
     let etudiant  = recupetudiant();
@@ -164,10 +164,19 @@ module.exports = {
     }
     else
     {
-        let membersWithRole = interaction.guild.roles.cache.get(role_id.id).members;
-        let membersName = membersWithRole.map(m => m.displayName);
-
-        await interaction.reply(`Il y a ${membersName.length} membres avec le role "${role_id.name}"`);
+      let membersName;
+      let nb = 0;
+      interaction.guild.members.fetch()
+        .then((members) => {
+          membersName = members.map(m => m);
+          for (let i = 0; i < membersName.length; i++) {
+            if (checkRole(membersName[i], role_id.id))
+              nb++;
+          }
+          //nb = membersName.length;
+          interaction.reply(`Il y a ${nb} membres avec le role "${role_id.name}"`);
+        })
+        .catch(console.error);
     }
   },
 };
