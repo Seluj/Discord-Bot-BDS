@@ -10,9 +10,11 @@ module.exports = {
     .addRoleOption(option =>
       option
         .setName('role_id')
-        .setDescription('ID du role à mettre')),
+        .setDescription('ID du role à mettre')
+        .setRequired(true)),
   async execute(interaction)
   {
-    //let members = interaction.
+    const { everyone } = require(`./serveur/roles/role_${interaction.guildId}.json`);
+
   },
 };
