@@ -1,6 +1,9 @@
 const { REST, Routes } = require('discord.js');
+dotenv = require('dotenv');
+dotenv.config();
 
-const rest = new REST({ version: '10' }).setToken('MTAzMjYwODkzOTAxMzA1MDM4OQ.G5-unj.KmDgQIMmYG5ZwAXcwAI9ft-RqAGN4i3Is-tY-0');
+
+const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
 // ...
 /*
@@ -12,6 +15,6 @@ rest.put(Routes.applicationGuildCommands("1032608939013050389", "103196327555604
  */
 
 // for global commands
-rest.put(Routes.applicationCommands("1032608939013050389"), { body: [] })
+rest.put(Routes.applicationCommands(process.env.clientId), { body: [] })
   .then(() => console.log('Successfully deleted all application commands.'))
   .catch(console.error);
