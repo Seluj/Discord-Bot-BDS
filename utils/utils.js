@@ -38,10 +38,7 @@ function checkRole(etudiant, id_role)
  */
 function checkName(name) {
   let nb = name.split(' ');
-  if (nb.length < 2)
-    return false;
-  else
-    return true;
+  return nb.length >= 2;
 }
 
 /**
@@ -85,10 +82,7 @@ function checkDate(date)
       {
         if (month === month_cotis)
         {
-          if (day > day_cotis)
-            returned = false;
-          else
-            returned = true;
+          returned = day <= day_cotis;
         } else
           returned = true;
       }
