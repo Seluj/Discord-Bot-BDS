@@ -1,15 +1,11 @@
 
 const fs = require("node:fs");
 const readline = require("node:readline");
+const { parse } = require("csv-parse");
 
-/**
- * Recupere la liste des étudiants dans la base de données (fichier csv)
- * @returns {*[]}
- */
+
 function recupetudiant()
 {
-  const stream = fs.createReadStream("adherent.csv");
-  let rl = readline.createInterface(({ input: stream}));
   let etudiant = [];
   fs.createReadStream("./adherent.csv")
     .pipe(
