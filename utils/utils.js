@@ -11,11 +11,17 @@ function recupetudiant()
   const stream = fs.createReadStream("adherent.csv");
   let rl = readline.createInterface(({ input: stream}));
   let etudiant = [];
-
-  rl.on("line", (row) =>
-  {
-    etudiant.push(row.split(";"));
-  })
+  fs.createReadStream("./adherent.csv")
+    .pipe(
+      parse({
+        delimiter: ";",
+        columns: false,
+        ltrim: true,
+      })
+    )
+    .on("data", function (row) {
+      etudiant.push(row);
+    });
   return etudiant;
 }
 
