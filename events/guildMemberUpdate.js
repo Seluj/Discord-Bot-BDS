@@ -6,20 +6,14 @@ const { addRole, deleteRole } =require("../utils/roles");
 module.exports = {
   name: Events.GuildMemberUpdate,
   async execute(oldMember, newMember) {
-    const { changeNom, r_nonCotisant, r_cotisant, bureau, ESTA, Staff_Skiut } = require('../config.json');
-    const { changement_de_pseudo } = require(`./serveur/channels/channels_${newMember.guild.id}.json`);
-    const { Attente_Cotisant, Change_de_nom, Cotisant } = require(`./serveur/roles/role_${newMember.guild.id}.json`);
-
     // Controle du changement de pseudo
     if (oldMember.displayName === newMember.displayName)
       return;
 
+    const { changement_de_pseudo } = require(`../serveur/channels/channels_${newMember.guild.id}.json`);
+    const { Attente_Cotisant, Change_de_nom, Cotisants, Staff_Ski_UTBM, ESTA, Membre_du_Bureau, Bot, Bureau_Restreints } = require(`../serveur/roles/role_${newMember.guild.id}.json`);
     // Contrôles sur les rôles
-    if (checkRole(newMember, bureau))
-      return;
-    if (checkRole(newMember, ESTA))
-      return;
-    if (checkRole(newMember, Staff_Skiut))
+    if (checkRole(newMember, Bot) || checkRole(newMember, Membre_du_Bureau) || checkRole(newMember, Bureau_Restreints) || checkRole(newMember, Staff_Ski_UTBM) || checkRole(newMember, ESTA))
       return;
 
     console.log(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
