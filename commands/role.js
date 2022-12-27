@@ -12,15 +12,13 @@ module.exports = {
         .setName('role_id')
         .setDescription('ID du role à chercher')
         .setRequired(true)),
-  async execute(interaction)
-  {
+  async execute(interaction) {
     let membersList;
     let nb_total = 0, nb_changer = 0, nb_coti = 0, nb_non_coti = 0, nb_reste = 0;
     let role_id = interaction.options.getRole('role_id');
     let bool_cotisant = false;
     let etudiant = parseCSVFiles("./adherent.csv", ";");
-    if (role_id === null)
-    {
+    if (role_id === null) {
       const { Cotisants, Attente_Cotisant, Change_de_nom, Membre_du_Bureau, Bureau_Restreints, Staff_Ski_UTBM, ESTA, Bot } = require(`../serveur/roles/role_${interaction.guild.id}.json`)
       let prenom_nom, pseudo_discord;
       interaction.guild.members.fetch()
@@ -41,8 +39,7 @@ module.exports = {
               pseudo_discord = pseudo_discord.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
               let j = 0;
               let trouve = false;
-              while (j < etudiant.length && trouve === false)
-              {
+              while (j < etudiant.length && trouve === false) {
                 prenom_nom = etudiant[j][1] + ' ' + etudiant[j][0];
                 prenom_nom = prenom_nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                 if (prenom_nom === pseudo_discord)
@@ -50,8 +47,7 @@ module.exports = {
                 else
                   j++;
               }
-              if (trouve === true)
-              {
+              if (trouve === true) {
                 bool_cotisant = checkDate(etudiant[j][2]);
               }
               if (bool_cotisant) {
@@ -63,15 +59,14 @@ module.exports = {
                 deleteRole(membersList[i], Cotisants);
                 nb_non_coti++;
               }
+              bool_cotisant = false;
             }
           }
           nb_reste = nb_total - (nb_coti + nb_non_coti + nb_changer);
           interaction.reply(`Sur ${nb_total} membres:\n> ${nb_coti} sont cotisants\n> ${nb_non_coti} sont non cotisants\n> ${nb_changer} doivent changer de nom\n> ${nb_reste} sont des exceptions\nMerci !`);
         })
         .catch(console.error);
-    }
-    else
-    {
+    } else {
       interaction.guild.members.fetch()
         .then((members) => {
           membersList = members.map(m => m);

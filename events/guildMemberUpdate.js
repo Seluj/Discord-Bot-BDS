@@ -19,17 +19,17 @@ module.exports = {
     console.log(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
 
     // Notification sur le discord
-    if (changement_de_pseudo === undefined )
+    if (changement_de_pseudo === undefined ) {
       console.log('Aucun Salon');
-    else {
+    } else {
       let channel = newMember.guild.channels.cache.get(changement_de_pseudo);
       channel.send(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
     }
 
     // Mise en place des rôles
-    if (Attente_Cotisant === undefined || Change_de_nom === undefined || Cotisants === undefined)
+    if (Attente_Cotisant === undefined || Change_de_nom === undefined || Cotisants === undefined) {
       console.log("Aucun Rôle");
-    else {
+    } else {
       deleteRole(newMember, Cotisants);
       if (checkName(newMember.displayName)) {
         deleteRole(newMember, Change_de_nom);

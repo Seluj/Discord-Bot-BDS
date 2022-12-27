@@ -1,19 +1,24 @@
 const fs = require("node:fs");
 const { replace } = require('./utils');
 
-function rolesFiles(guild)
-{
-  if (Array.isArray(guild))
-  {
+/**
+ * Create role files for a given guild, compare if guild is a table or not
+ * @param guild guild to check
+ */
+function rolesFiles(guild) {
+  if (Array.isArray(guild)) {
     for (let i = 0; i< guild.length; i++)
       createRolesFiles(guild[i]);
-  }
-  else
+  } else {
     createRolesFiles(guild);
+  }
 }
 
-function createRolesFiles(guild)
-{
+/**
+ * Create role files for a given guild
+ * @param guild guild to check
+ */
+function createRolesFiles(guild) {
   let filename = "./serveur/roles/role_" + guild.id + ".json";
   let roles_id = guild.roles.cache.map(m => m.id);
   let roles_name = guild.roles.cache.map((m => m.name));

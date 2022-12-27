@@ -1,19 +1,25 @@
 const fs = require("node:fs");
 const { replace } = require('./utils');
 
-function channelFiles(guild)
-{
+/**
+ * Create channel files for a given guild, compare if guild is a table or not
+ * @param guild guild to check
+ */
+function channelFiles(guild) {
   if (Array.isArray(guild)) {
-    for (let i = 0; i < guild.length; i++) {
+    for (let i = 0; i < guild.length; i++)
       createChannelFiles(guild[i]);
-    }
-  }
-  else
+  } else {
     createChannelFiles(guild);
+  }
 }
 
-function createChannelFiles(guild)
-{
+
+/**
+ * Create channel files for a given guild
+ * @param guild guild to check
+ */
+function createChannelFiles(guild) {
   let filename = "./serveur/channels/channels_" + guild.id + ".json";
   let channels_id = guild.channels.cache.map(m => m.id);
   let channels_name = guild.channels.cache.map((m => m.name));

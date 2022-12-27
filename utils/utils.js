@@ -7,8 +7,7 @@ const { parse } = require("csv-parse");
  * @param separator separator to parse
  * @returns {*[]} data that is contains in the csv file
  */
-function parseCSVFiles(path, separator)
-{
+function parseCSVFiles(path, separator) {
   let data = [];
   fs.createReadStream(path)
     .pipe(
@@ -24,15 +23,13 @@ function parseCSVFiles(path, separator)
   return data;
 }
 
-
 /**
- * Vérifie pour un étudiant donné s'il possede le role passé en parametre
+ * Vérifie pour un étudiant donné s'il possède le role passé en paramètre
  * @param etudiant etudiant a checker
  * @param id_role role a chécker
  * @returns {boolean} retourne true si
  */
-function checkRole(etudiant, id_role)
-{
+function checkRole(etudiant, id_role) {
   return etudiant.roles.cache.some(role => role.id === id_role)
 }
 
@@ -47,12 +44,11 @@ function checkName(name) {
 }
 
 /**
- * Test si la date passée en parametre est plus grande que la date du jour de lancement de la commande
+ * Test si la date passée en paramètre est plus grande que la date du jour de lancement de la commande
  * @param date Date à vérifier
  * @returns {boolean} true si la date est plus grande que celle courante false sinon
  */
-function checkDate(date)
-{
+function checkDate(date) {
   let returned;
   let today = new Date();
   let day = String(today.getDate()).padStart(2, '0');
@@ -71,55 +67,42 @@ function checkDate(date)
   month_cotis = parseInt(month_cotis);
   year_cotis = parseInt(year_cotis);
 
-  if (year > year_cotis)
-  {
+  if (year > year_cotis) {
     returned = false;
-  }
-  else
-  {
-    if (year === year_cotis)
-    {
-      if (month > month_cotis)
-      {
+  } else {
+    if (year === year_cotis) {
+      if (month > month_cotis) {
         returned = false;
-      }
-      else
-      {
-        if (month === month_cotis)
-        {
+      } else {
+        if (month === month_cotis) {
           returned = day <= day_cotis;
-        } else
+        } else {
           returned = true;
+        }
       }
-    }
-    else
-    {
+    } else {
       returned = true;
     }
   }
-
   return returned;
 }
 
 /**
- *
- * @param joueur
- * @param boolean
- * @returns {string}
+ * Créer une chaine de caractère préte à être affiché ensuite avec les informations d'un joueur.
+ * En fonction du boolean, la date va être en gras si true et normal si false
+ * @param joueur Joueur à afficher
+ * @param boolean pour décorer la date
+ * @returns {string} retourne la chaine de caractère pour affichage
  */
-function affichageJoueur(joueur, boolean)
-{
+function affichageJoueur(joueur, boolean) {
   let returned;
   let date = joueur[2].split(' ');
-  if (boolean === true)
-  {
+  if (boolean === true) {
     returned = `Trouvé: \n
             Nom : ${joueur[0]}\n
             Prénom : ${joueur[1]}\n
             Date : **${date[0]}**`
-  }
-  else
-  {
+  } else {
     returned = `Trouvé: \n
             Nom : ${joueur[0]}\n
             Prénom : ${joueur[1]}\n
@@ -129,15 +112,13 @@ function affichageJoueur(joueur, boolean)
 }
 
 /**
- * Modifie les caracteres non-désirés : espace et -
+ * Modifie les caractères non-désirés : espace et -
  * @param string chaine à modifier
  * @returns {string} chaine modifiée
  */
-function replace(string)
-{
+function replace(string) {
   let returned = string;
-  for (let i=0; i< returned.length; i++)
-  {
+  for (let i=0; i< returned.length; i++) {
     if (returned[i] === ' ')
       returned = replaceAt(returned, i, "_");
     if (returned[i] === '-')
@@ -151,11 +132,11 @@ function replace(string)
 }
 
 /**
- * Remplace un charactere d'une chaine à l'index donnée
+ * Remplace un caractère d'une chaine à l'index donnée
  * @param str chaine à modifier
- * @param index index ou modifier le charactere
- * @param chr charactere de remplacement
- * @returns {string} chaine avec le caractere modifié
+ * @param index index ou modifier le caractère
+ * @param chr caractère de remplacement
+ * @returns {string} chaine avec le caractère modifié
  */
 function replaceAt(str, index, chr) {
   if(index > str.length-1)
@@ -164,10 +145,9 @@ function replaceAt(str, index, chr) {
 }
 
 /**
- * Supprime tous les anciens fichiers pour éviter la multiplications et l'accumulation des données
+ * Supprime tous les anciens fichiers pour éviter la multiplication et l'accumulation des données
  */
-function deleteOldestFiles()
-{
+function deleteOldestFiles() {
   let pathRoles = './serveur/roles/';
   let pathChannel = './serveur/channels/'
   const roles_files = fs.readdirSync(pathRoles).filter(file => file.startsWith('role_'));
@@ -182,7 +162,6 @@ function deleteOldestFiles()
       if (err) throw err;
     })
   }
-
   console.log(`${roles_files.length} fichier(s) de rôles et ${channels_files.length} fichier(s) de salons ont été supprimé`);
 }
 

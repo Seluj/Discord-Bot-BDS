@@ -9,20 +9,17 @@ module.exports = {
     console.log(`${member.user.tag} a rejoins le serveur ${member.guild.name}`);
 
     // Notification sur le discord
-    if (arrivée === undefined)
-    {
+    if (arrivée === undefined) {
       console.log("Aucun salon");
-    }
-    else
-    {
+    } else {
       let channel = member.guild.channels.cache.get(arrivée);
       channel.send(`${member.user.tag} joined`);
     }
 
     // Mise en place des rôles
-    if (Attente_Cotisant === undefined || Change_de_nom === undefined)
+    if (Attente_Cotisant === undefined || Change_de_nom === undefined) {
       console.log("Aucun Role");
-    else {
+    } else {
       let tmp = member.displayName.split(' ');
       if (tmp.length <= 1) {
           member.roles.add(Change_de_nom);
