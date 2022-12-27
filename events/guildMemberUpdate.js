@@ -33,17 +33,16 @@ module.exports = {
     }
 
     // Mise en place des rôles
-    if (Attente_Cotisant === undefined || Change_de_nom === undefined)
+    if (Attente_Cotisant === undefined || Change_de_nom === undefined || Cotisants === undefined)
       console.log("Aucun Rôle");
     else {
-      newMember.roles.remove(Cotisant);
-      let tmp = newMember.displayName.split(' ');
-      if (tmp.length <= 1) {
-        newMember.roles.remove(Attente_Cotisant);
-        newMember.roles.add(Change_de_nom);
+      deleteRole(newMember, Cotisants);
+      if (checkName(newMember.displayName)) {
+        deleteRole(newMember, Change_de_nom);
+        addRole(newMember, Attente_Cotisant);
       } else {
-        newMember.roles.remove(Change_de_nom);
-        newMember.roles.add(Attente_Cotisant);
+        deleteRole(newMember, Attente_Cotisant);
+        addRole(newMember, Change_de_nom);
       }
     }
   },

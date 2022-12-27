@@ -48,6 +48,18 @@ function checkRole(etudiant, id_role)
   return etudiant.roles.cache.some(role => role.id === id_role)
 }
 
+/**
+ * Vérifie si le nom corresponds à "zea zea *" (* signifiant n'importe quoi)
+ * @param name nom a verifier
+ * @returns {boolean} true si le nom corresponds false sinon
+ */
+function checkName(name) {
+  let nb = name.split(' ');
+  if (nb.length < 2)
+    return false;
+  else
+    return true;
+}
 
 /**
  * Test si la date passée en parametre est plus grande que la date du jour de lancement de la commande
