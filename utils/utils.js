@@ -1,41 +1,22 @@
-
 const fs = require("node:fs");
-const readline = require("node:readline");
 const { parse } = require("csv-parse");
 
 
-function recupetudiant()
+function parseCSVFiles(path, separator)
 {
-  let etudiant = [];
-  fs.createReadStream("./adherent.csv")
+  let data = [];
+  fs.createReadStream(path)
     .pipe(
       parse({
-        delimiter: ";",
+        delimiter: separator,
         columns: false,
         ltrim: true,
       })
     )
     .on("data", function (row) {
-      etudiant.push(row);
+      data.push(row);
     });
-  return etudiant;
-}
-
-/**
- * Récupere la liste des membres inscrit ffsu
- * @returns {*[]}
- */
-function recupffsu()
-{
-  const stream = fs.createReadStream("ffsu.csv");
-  let rl = readline.createInterface(({ input: stream}));
-  let ffsu = [];
-
-  rl.on("line", (row) =>
-  {
-    ffsu.push(row.split(";"));
-  })
-  return ffsu;
+  return data;
 }
 
 
@@ -209,8 +190,7 @@ function deleteOldestFiles()
 module.exports = {
   checkDate,
   affichageJoueur,
-  recupetudiant,
-  recupffsu,
+  parseCSVFiles,
   checkRole,
   deleteOldestFiles,
   replace,

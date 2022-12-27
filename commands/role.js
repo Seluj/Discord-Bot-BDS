@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { recupetudiant, checkDate, checkRole, checkName } = require("../utils/utils");
+const { parseCSVFiles, checkDate, checkRole, checkName } = require("../utils/utils");
 const { addRole, deleteRole } = require('../utils/roles');
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
     let nb_total = 0, nb_changer = 0, nb_coti = 0, nb_non_coti = 0, nb_reste = 0;
     let role_id = interaction.options.getRole('role_id');
     let bool_cotisant = false;
-    let etudiant = recupetudiant();
+    let etudiant = parseCSVFiles("./adherent.csv", ";");
     if (role_id === null)
     {
       const { Cotisants, Attente_Cotisant, Change_de_nom, Membre_du_Bureau, Bureau_Restreints, Staff_Ski_UTBM, ESTA, Bot } = require(`../serveur/roles/role_${interaction.guild.id}.json`)

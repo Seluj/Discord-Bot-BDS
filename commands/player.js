@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { recupetudiant, affichageJoueur, checkDate } = require("../utils/utils");
+const { parseCSVFiles, affichageJoueur, checkDate } = require("../utils/utils");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
     .setDefaultMemberPermissions(0),
   async execute(interaction)
   {
-    let etudiant  = recupetudiant();
+    let etudiant  = parseCSVFiles("./adherent.csv", ";");
     let prenom    = interaction.options.getString('prenom');
     let nom       = interaction.options.getString('nom');
     let prenom_etudiant;
