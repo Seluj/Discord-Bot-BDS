@@ -7,8 +7,8 @@ module.exports = {
   name: Events.ClientReady,
   once: true,
   execute(client) {
-    client.user.setUsername('BDS').then(r => console.log(r));
-    client.user.setAvatar('./logo/logo1.png').then(r => console.log(r));
+    client.user.setUsername('BDS');
+    client.user.setAvatar('./logo/logo1.png');
     client.user.setActivity("JJG's songs", { type: ActivityType.Listening });
     client.user.setPresence({ status: 'dnd', });
     let guild = client.guilds.cache.map(m => m);
