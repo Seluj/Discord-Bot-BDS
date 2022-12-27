@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { recupetudiant, testDate, checkRole } = require("../utils/utils");
+const { recupetudiant, checkDate, checkRole } = require("../utils/utils");
 const { bureau, ESTA, r_nonCotisant, r_memberRoleId, r_cotisant, changeNom } = require('../config.json');
 
 module.exports = {

@@ -54,7 +54,7 @@ function checkRole(etudiant, id_role)
  * @param date Date à vérifier
  * @returns {boolean} true si la date est plus grande que celle courante false sinon
  */
-function testDate(date)
+function checkDate(date)
 {
   let returned;
   let today = new Date();
@@ -191,7 +191,7 @@ function deleteOldestFiles()
 }
 
 module.exports = {
-  testDate,
+  checkDate,
   affichageJoueur,
   recupetudiant,
   recupffsu,

@@ -1,5 +1,6 @@
 const { Events } = require('discord.js');
-const { checkRole } = require("../utils/utils");
+const { checkRole, checkName } = require("../utils/utils");
+const { addRole, deleteRole } =require("../utils/roles");
 
 
 module.exports = {
