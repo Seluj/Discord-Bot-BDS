@@ -1,6 +1,6 @@
 const { Events } = require('discord.js');
 
-const { channelFiles } =require("../utils/channels");
+const { channelFiles } =require("../utils/channels_files");
 const { rolesFiles } =require("../utils/roles");
 
 

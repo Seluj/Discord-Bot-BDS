@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { rolesFiles } = require("../utils/roles");
+const { rolesFiles } = require("../utils/roles_files");
 
 module.exports = {
   name: Events.GuildRoleDelete,
