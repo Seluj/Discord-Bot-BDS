@@ -162,6 +162,8 @@ function replace(string)
       returned = replaceAt(returned, i, "_");
     if (returned[i] === '@')
       returned = replaceAt(returned, i, "");
+    if (returned[i] === "'")
+      returned = replaceAt(returned, i, "_");
   }
   return returned;
 }
@@ -210,4 +212,5 @@ module.exports = {
   checkRole,
   deleteOldestFiles,
   replace,
+  checkName,
 };
