@@ -35,7 +35,7 @@ module.exports = {
         nom_etudiant = nom_etudiant.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         if (nom_etudiant === nom)
         {
-          let char = affichageJoueur(etudiant[i], testDate(etudiant[i][2]));
+          let char = affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
           await interaction.followUp(char);
         }
       }
@@ -50,7 +50,7 @@ module.exports = {
         prenom_etudiant = prenom_etudiant.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         if (prenom_etudiant === prenom)
         {
-          let char = affichageJoueur(etudiant[i], testDate(etudiant[i][2]));
+          let char = affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
           await interaction.followUp(char);
         }
       }
@@ -68,7 +68,7 @@ module.exports = {
         prenom_etudiant = prenom_etudiant.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         if (nom_etudiant === nom && prenom_etudiant === prenom)
         {
-          let char = affichageJoueur(etudiant[i], testDate(etudiant[i][2]));
+          let char = affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
           await interaction.followUp(char);
         }
       }
