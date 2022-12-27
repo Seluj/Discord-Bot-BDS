@@ -1,7 +1,12 @@
 const fs = require("node:fs");
 const { parse } = require("csv-parse");
 
-
+/**
+ * Parse CSV files function
+ * @param path where to find the csv file
+ * @param separator separator to parse
+ * @returns {*[]} data that is contains in the csv file
+ */
 function parseCSVFiles(path, separator)
 {
   let data = [];
