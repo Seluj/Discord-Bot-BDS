@@ -5,61 +5,69 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('player')
     .setDescription('Liste la ou les personnes en fonction du nom ou/et prénom. Si aucun argument envoie une erreur')
-    .addStringOption(option =>
-      option
+    .setDefaultMemberPermissions(0)
+    .addSubcommand(subcommand =>
+      subcommand
         .setName('prenom')
-        .setDescription('Prénom de la personne (optionnelle)'))
-    .addStringOption(option =>
-      option
+        .setDescription('Recherche par prénom')
+        .addStringOption(option =>
+          option
+            .setName('prenom')
+            .setDescription('Prénom de la personne')
+            .setRequired(true)))
+    .addSubcommand(subcommand =>
+      subcommand
         .setName('nom')
-        .setDescription('Nom de la personne (optionelle)'))
-    .setDefaultMemberPermissions(0),
+        .setDescription('Recherche par nom')
+        .addStringOption(option =>
+          option
+            .setName('nom')
+            .setDescription('Prénom de la personne')
+            .setRequired(true))),
   async execute(interaction) {
-    let etudiant  = parseCSVFiles("./adherent.csv", ";");
-    let prenom    = interaction.options.getString('prenom');
-    let nom       = interaction.options.getString('nom');
-    let prenom_etudiant;
-    let nom_etudiant;
-    if (prenom === null && nom === null) {
-      await interaction.reply({ content: 'Aucune option entrée', ephemeral:true});
-    } else if (prenom === null && nom != null) {
-      await interaction.reply(`Recherche du nom : ${nom}`);
-      nom = nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    let etudiant = parseCSVFiles("./adherent.csv", ";");
+    let opt;
+    let data;
+    let str = "";
+    let nb = 0;
+
+    if (interaction.options.getSubcommand() === "prenom") {
+      opt = interaction.options.getString('prenom');
+      await interaction.reply(`Recherche du prenom : ${opt}`);
+      opt = opt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (let i=0; i<etudiant.length; i++) {
-        nom_etudiant = etudiant[i][0];
-        nom_etudiant = nom_etudiant.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        if (nom_etudiant === nom) {
-          let char = affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
-          await interaction.followUp(char);
+        data = etudiant[i][1];
+        data = data.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (data === opt) {
+          str += affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
+          nb ++;
         }
       }
-    } else if (prenom != null && nom === null) {
-      await interaction.reply(`Recherche du prenom : ${prenom}`);
-      prenom = prenom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    } else if (interaction.options.getSubcommand() === "nom") {
+      opt = interaction.options.getString('nom');
+      await interaction.reply(`Recherche du nom : ${opt}`);
+      opt = opt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (let i=0; i<etudiant.length; i++) {
-        prenom_etudiant = etudiant[i][1];
-        prenom_etudiant = prenom_etudiant.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        if (prenom_etudiant === prenom) {
-          let char = affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
-          await interaction.followUp(char);
+        data = etudiant[i][0];
+        data = data.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (data === opt) {
+          str += affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
+          nb ++;
         }
       }
-    } else if (prenom != null && nom != null) {
-      await interaction.reply(`Recherche du nom : ${nom} et Prenom : ${prenom}`);
-      nom = nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      prenom = prenom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      for (let i=0; i<etudiant.length; i++) {
-        nom_etudiant = etudiant[i][0];
-        nom_etudiant = nom_etudiant.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        prenom_etudiant = etudiant[i][1];
-        prenom_etudiant = prenom_etudiant.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        if (nom_etudiant === nom && prenom_etudiant === prenom) {
-          let char = affichageJoueur(etudiant[i], checkDate(etudiant[i][2]));
-          await interaction.followUp(char);
-        }
-      }
-    } else {
-      await interaction.reply(`Vous devez entrer au moins un des deux arguments`);
+    }
+
+    // Contrôle de la longueur puisque discord limite à 2000 caractères
+    let str_length = str.length;
+    let tmp_str = [];
+    let divide_number = Math.trunc(str_length / 2000) + 1;
+    for (let i = 0; i < divide_number; i++) {
+      tmp_str[i] = str.slice((str_length / divide_number) * i, (str_length / divide_number) * (i + 1));
+    }
+
+    // Écriture du résultat
+    for (let i = 0; i < tmp_str.length; i++) {
+      await interaction.followUp(tmp_str[i]);
     }
   },
 };
