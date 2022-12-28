@@ -4,15 +4,15 @@ const { parseCSVFiles, affichageJoueur, checkDate } = require("../utils/utils");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('player')
-    .setDescription('Liste la ou les personnes en fonction du nom ou/et prénom. Si aucun argument envoie une erreur')
+    .setDescription('Réalise une recherche dans la bdd en fonction du nom ou du prénom')
     .setDefaultMemberPermissions(0)
     .addSubcommand(subcommand =>
       subcommand
-        .setName('prenom')
+        .setName('prénom')
         .setDescription('Recherche par prénom')
         .addStringOption(option =>
           option
-            .setName('prenom')
+            .setName('prénom')
             .setDescription('Prénom de la personne')
             .setRequired(true)))
     .addSubcommand(subcommand =>
@@ -22,7 +22,7 @@ module.exports = {
         .addStringOption(option =>
           option
             .setName('nom')
-            .setDescription('Prénom de la personne')
+            .setDescription('Nom de la personne')
             .setRequired(true))),
   async execute(interaction) {
     // Liste des étudiants contenu dans le fichier donné
@@ -36,8 +36,8 @@ module.exports = {
     //Construction du résultat en fonction du nom ou du prénom
 
       // Test pour la subCommand "prenom"
-    if (interaction.options.getSubcommand() === "prenom") {
-      opt = interaction.options.getString('prenom');
+    if (interaction.options.getSubcommand() === "prénom") {
+      opt = interaction.options.getString('prénom');
       await interaction.reply(`Recherche du prénom : ${opt}`);
       opt = opt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (let i=0; i<etudiant.length; i++) {
