@@ -105,17 +105,9 @@ function affichageJoueur(joueur, boolean) {
     date[0] = "null";
   }
   if (boolean === true) {
-    returned = `Trouvé:
-            Nom : ${joueur[0]}
-            Prénom : ${joueur[1]}
-            Date : **${date[0]}**
-            `
+    returned = `__Trouvé__:\n> **Nom : ${joueur[0]}\n> Prénom : ${joueur[1]}\n> Date : ${date[0]}**\n`
   } else {
-    returned = `Trouvé: 
-            Nom : ${joueur[0]}
-            Prénom : ${joueur[1]}
-            Date : ${date[0]}
-            `
+    returned = `__Trouvé__:\n> Nom : ${joueur[0]}\n> Prénom : ${joueur[1]}\n> Date : ${date[0]}\n`
   }
   return returned;
 }
