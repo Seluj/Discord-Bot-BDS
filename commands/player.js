@@ -25,15 +25,20 @@ module.exports = {
             .setDescription('Prénom de la personne')
             .setRequired(true))),
   async execute(interaction) {
+    // Liste des étudiants contenu dans le fichier donné
     let etudiant = parseCSVFiles("./adherent.csv", ";");
-    let opt;
-    let data;
-    let str = "";
-    let nb = 0;
+    // Variables
+    let opt;        // option : option entrée par l'utilisateur
+    let data;       // information à comparer avec l'option, récupérée dans le fichier des étudiants
+    let str = "";   // Résultat final avec tous les étudiants qui correspondent à la recherche
+    let nb = 0;     // Nombre d'étudiants trouvé
 
+    //Construction du résultat en fonction du nom ou du prénom
+
+      // Test pour la subCommand "prenom"
     if (interaction.options.getSubcommand() === "prenom") {
       opt = interaction.options.getString('prenom');
-      await interaction.reply(`Recherche du prenom : ${opt}`);
+      await interaction.reply(`Recherche du prénom : ${opt}`);
       opt = opt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (let i=0; i<etudiant.length; i++) {
         data = etudiant[i][1];
@@ -43,6 +48,8 @@ module.exports = {
           nb ++;
         }
       }
+
+      // Test pour la subCommand "nom"
     } else if (interaction.options.getSubcommand() === "nom") {
       opt = interaction.options.getString('nom');
       await interaction.reply(`Recherche du nom : ${opt}`);
@@ -56,6 +63,7 @@ module.exports = {
         }
       }
     }
+    str += `Nombre trouvé : ${nb}`;
 
     // Contrôle de la longueur puisque discord limite à 2000 caractères
     let str_length = str.length;
