@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { r_cotisant, r_nonCotisant, c_cotisant, c_nonCotisant, c_total} = require("../config.json");
 
 module.exports = {
     data: new SlashCommandBuilder()
