@@ -101,16 +101,21 @@ function checkDate(date) {
 function affichageJoueur(joueur, boolean) {
   let returned;
   let date = joueur[2].split(' ');
+  if (date[0] === "") {
+    date[0] = "null";
+  }
   if (boolean === true) {
-    returned = `Trouvé: \n
-            Nom : ${joueur[0]}\n
-            Prénom : ${joueur[1]}\n
-            Date : **${date[0]}**`
+    returned = `Trouvé:
+            Nom : ${joueur[0]}
+            Prénom : ${joueur[1]}
+            Date : **${date[0]}**
+            `
   } else {
-    returned = `Trouvé: \n
-            Nom : ${joueur[0]}\n
-            Prénom : ${joueur[1]}\n
-            Date : ${date[0]}`
+    returned = `Trouvé: 
+            Nom : ${joueur[0]}
+            Prénom : ${joueur[1]}
+            Date : ${date[0]}
+            `
   }
   return returned;
 }
