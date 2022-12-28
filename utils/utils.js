@@ -49,16 +49,20 @@ function checkName(name) {
  * @returns {boolean} true si la date est plus grande que celle courante false sinon
  */
 function checkDate(date) {
+  let tmp = date.split(' ');
+  if (tmp[0] === "")
+    return false;
+
+  tmp = tmp[0].split('-');
+  let year_cotis = tmp[0];
+  let month_cotis = tmp[1];
+  let day_cotis = tmp[2];
+
   let returned;
   let today = new Date();
   let day = String(today.getDate()).padStart(2, '0');
   let month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   let year = today.getFullYear();
-  let tmp = date.split(' ');
-  tmp = tmp[0].split('-');
-  let year_cotis = tmp[0];
-  let month_cotis = tmp[1];
-  let day_cotis = tmp[2];
 
   day = parseInt(day);
   month = parseInt(month);
