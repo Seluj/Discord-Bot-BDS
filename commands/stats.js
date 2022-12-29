@@ -6,9 +6,9 @@ module.exports = {
     .setDescription('Mets a jour les statisques du serveur')
     .setDefaultMemberPermissions(0),
   async execute(interaction) {
-    console.log("to do");
+    console.log("à faire");
     await interaction.reply({
-      content: "to do",
+      content: "à faire",
       ephemeral: true,
     })
     /*

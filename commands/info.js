@@ -3,19 +3,19 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('info')
-    .setDescription('Get info about a user or a server!')
+    .setDescription('Obtenez des informations sur un utilisateur ou un serveur !')
     .addSubcommand(subcommand =>
       subcommand
         .setName('user')
-        .setDescription('Info about a user')
+        .setDescription('Information à propos d\'un utilisateur')
         .addUserOption(option =>
         option
           .setName('user')
-          .setDescription('a user to find')))
+          .setDescription('un utilisateur à chercher')))
     .addSubcommand(subcommand =>
       subcommand
         .setName('server')
-        .setDescription('Info about the server')),
+        .setDescription('Information à propos d\'un serveur')),
   async execute(interaction) {
     let str = "";
     if (interaction.options.getSubcommand() === "user") {
