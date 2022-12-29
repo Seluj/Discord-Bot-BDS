@@ -13,20 +13,37 @@ module.exports = {
         .setDescription('ID du role à chercher')
         .setRequired(true)),
   async execute(interaction) {
+
+    //Variables
+
     let membersList;
     let nb_total = 0, nb_changer = 0, nb_coti = 0, nb_non_coti = 0, nb_reste = 0;
     let role_id = interaction.options.getRole('role_id');
     let bool_cotisant = false;
     let etudiant = parseCSVFiles("./adherent.csv", ";");
     if (role_id === null) {
-      const { Cotisants, Attente_Cotisant, Change_de_nom, Membre_du_Bureau, Bureau_Restreints, Staff_Ski_UTBM, ESTA, Bot } = require(`../serveur/roles/role_${interaction.guild.id}.json`)
+      // Récupération des IDs des rôles
+      const {
+        Cotisants,          // Les cotisants
+        Attente_Cotisant,   // Les non cotisants
+        Change_de_nom,      // Ceux qui doivent changer de nom
+        Membre_du_Bureau,   // Les membres du bureau
+        Bureau_Restreints,  // Les membres du bureau restreint
+        Staff_Ski_UTBM,     // Les membres du staff Ski'UTBM
+        ESTA,               // Les membres de l'ESTA
+        Bot                 // Les bots du serveur
+      } = require(`../serveur/roles/role_${interaction.guild.id}.json`)
       let prenom_nom, pseudo_discord;
       interaction.guild.members.fetch()
         .then((members) => {
           membersList = members.map(m => m);
           for (let i = 0; i < membersList.length; i++) {
             nb_total++;
-            if (checkRole(membersList[i], Bot) || checkRole(membersList[i], Membre_du_Bureau) || checkRole(membersList[i], Bureau_Restreints) || checkRole(membersList[i], Staff_Ski_UTBM) || checkRole(membersList[i], ESTA))
+            if (checkRole(membersList[i], Bot) ||
+              checkRole(membersList[i], Membre_du_Bureau) ||
+              checkRole(membersList[i], Bureau_Restreints) ||
+              checkRole(membersList[i], Staff_Ski_UTBM) ||
+              checkRole(membersList[i], ESTA))
               continue;
             if (!checkName(membersList[i].displayName)) {
               addRole(membersList[i], Change_de_nom);
@@ -47,9 +64,8 @@ module.exports = {
                 else
                   j++;
               }
-              if (trouve === true) {
+              if (trouve === true)
                 bool_cotisant = checkDate(etudiant[j][2]);
-              }
               if (bool_cotisant) {
                 addRole(membersList[i], Cotisants);
                 deleteRole(membersList[i], Attente_Cotisant);
