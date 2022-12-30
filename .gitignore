@@ -1,0 +1,6 @@
+serveur/*
+.env
+node_modules/*
+*.csv
+n
+config.json
