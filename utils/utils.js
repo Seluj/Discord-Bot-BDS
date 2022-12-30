@@ -30,7 +30,7 @@ function parseCSVFiles(path, separator) {
  * @returns {boolean} retourne true si
  */
 function checkRole(etudiant, id_role) {
-  return etudiant.roles.cache.some(role => role.id === id_role)
+  return etudiant.roles.cache.some(role => role.id === id_role);
 }
 
 /**
@@ -105,9 +105,9 @@ function affichageJoueur(joueur, boolean) {
     date[0] = "null";
   }
   if (boolean === true) {
-    returned = `__Trouvé__:\n> **Nom : ${joueur[0]}\n> Prénom : ${joueur[1]}\n> Date : ${date[0]}**\n`
+    returned = `__Trouvé__:\n> **Nom : ${joueur[0]}\n> Prénom : ${joueur[1]}\n> Date : ${date[0]}**\n`;
   } else {
-    returned = `__Trouvé__:\n> Nom : ${joueur[0]}\n> Prénom : ${joueur[1]}\n> Date : ${date[0]}\n`
+    returned = `__Trouvé__:\n> Nom : ${joueur[0]}\n> Prénom : ${joueur[1]}\n> Date : ${date[0]}\n`;
   }
   return returned;
 }
@@ -150,17 +150,19 @@ function replaceAt(str, index, chr) {
  */
 function deleteOldestFiles() {
   let pathRoles = './serveur/roles/';
-  let pathChannel = './serveur/channels/'
+  let pathChannel = './serveur/channels/';
   const roles_files = fs.readdirSync(pathRoles).filter(file => file.startsWith('role_'));
   const channels_files = fs.readdirSync(pathChannel).filter(file => file.startsWith('channels_'));
   for (let i=0; i< roles_files.length; i++) {
     fs.unlink(pathRoles + roles_files[i], (err) => {
-      if (err) throw err;
+      if (err)
+        throw err;
     });
   }
   for (let i = 0; i < channels_files.length; i++) {
     fs.unlink(pathChannel + channels_files[i], (err) => {
-      if (err) throw err;
+      if (err)
+        throw err;
     })
   }
   console.log(`${roles_files.length} fichier(s) de rôles et ${channels_files.length} fichier(s) de salons ont été supprimé`);

@@ -5,7 +5,7 @@
  * @param id_role role to add
  */
 function addRole(member, id_role) {
-  member.roles.add(id_role)
+  member.roles.add(id_role);
 }
 
 /**
@@ -14,7 +14,7 @@ function addRole(member, id_role) {
  * @param id_role role to remove
  */
 function deleteRole(member, id_role) {
-  member.roles.remove(id_role)
+  member.roles.remove(id_role);
 }
 
 module.exports = {

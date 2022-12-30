@@ -23,7 +23,7 @@ function createChannelFiles(guild) {
   let filename = "./serveur/channels/channels_" + guild.id + ".json";
   let channels_id = guild.channels.cache.map(m => m.id);
   let channels_name = guild.channels.cache.map((m => m.name));
-  let data = '{\n'
+  let data = '{\n';
   for (let j = 0; j < channels_id.length; j++) {
     data += ("\t\"" + replace(channels_name[j]) + "\"" + ": \"" + channels_id[j] + "\"");
     if (j !== channels_id.length-1)
@@ -33,7 +33,8 @@ function createChannelFiles(guild) {
   }
   data += '}';
   fs.writeFile(filename, data, (err) => {
-    if (err) throw err;
+    if (err)
+      throw err;
   })
   console.log(`Fichier de salons pour ${guild} est créé`);
 }

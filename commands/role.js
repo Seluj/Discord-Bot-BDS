@@ -32,7 +32,7 @@ module.exports = {
         Staff_Ski_UTBM,     // Les membres du staff Ski'UTBM
         ESTA,               // Les membres de l'ESTA
         Bot                 // Les bots du serveur
-      } = require(`../serveur/roles/role_${interaction.guild.id}.json`)
+      } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
       let prenom_nom, pseudo_discord;
       interaction.guild.members.fetch()
         .then((members) => {
@@ -58,7 +58,7 @@ module.exports = {
               let trouve = false;
               while (j < etudiant.length && trouve === false) {
                 prenom_nom = etudiant[j][1] + ' ' + etudiant[j][0];
-                prenom_nom = prenom_nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                prenom_nom = prenom_nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                 if (prenom_nom === pseudo_discord)
                   trouve = true;
                 else

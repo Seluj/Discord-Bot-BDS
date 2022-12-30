@@ -17,7 +17,7 @@ module.exports = {
       if (command.data.default_member_permissions === undefined) {
         str += `Tout le monde\n`;
       } else {
-        str += `${command.data.default_member_permissions}\n`
+        str += `${command.data.default_member_permissions}\n`;
       }
     }
     return interaction.reply({

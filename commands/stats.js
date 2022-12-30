@@ -10,7 +10,7 @@ module.exports = {
     await interaction.reply({
       content: "à faire",
       ephemeral: true,
-    })
+    });
     /*
     await interaction.reply({content:`Server Stats is updating...`, ephemeral: true});
     let channel = interaction.guild.channels.cache.get(c_cotisant);
