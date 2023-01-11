@@ -4,7 +4,7 @@ module.exports = {
   name: Events.GuildMemberAdd,
   async execute(member) {
     const { arrivée } = require(`./serveur/channels/channels_${member.guild.id}.json`);
-    const { Attente_Cotisant, Change_de_nom } = require(`./serveur/roles/role_${member.guild.id}.json`);
+    //const { Attente_Cotisant, Change_de_nom } = require(`./serveur/roles/role_${member.guild.id}.json`);
 
     console.log(`${member.user.tag} a rejoins le serveur ${member.guild.name}`);
 
@@ -16,6 +16,7 @@ module.exports = {
       channel.send(`${member.user.tag} joined`);
     }
 
+    /*
     // Mise en place des rôles
     if (Attente_Cotisant === undefined || Change_de_nom === undefined) {
       console.log("Aucun Role");
@@ -27,5 +28,6 @@ module.exports = {
           member.roles.add(Attente_Cotisant);
       }
     }
+    */
   },
 };
