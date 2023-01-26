@@ -1,10 +1,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, Partials} = require('discord.js');
 dotenv = require('dotenv');
 dotenv.config();
 
-const client = new Client({intents : [3276799] });
+const client = new Client({intents : [3276799] , partials: [Partials.Channel]});
 
 // Commands
 client.commands = new Collection();

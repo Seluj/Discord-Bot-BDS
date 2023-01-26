@@ -29,15 +29,15 @@ module.exports = {
         if (Attente_Cotisant === undefined || Change_de_nom === undefined) {
           console.log("Aucun Role");
         } else {
-          reaction.message.guild.members.fetch(user.id)
-            .then(member => {
-              let tmp = member.displayName.split(' ');
-              if (tmp.length <= 1) {
-                member.roles.add(Change_de_nom);
-              } else {
-                member.roles.add(Attente_Cotisant);
-              }
-            });
+          let member = await reaction.message.guild.members.fetch(user.id);
+          let tmp = member.displayName.split(' ');
+          if (tmp.length <= 1) {
+            await member.send("Salut, renomme toi frérot et apprends à lire !! ");
+            await member.roles.add(Change_de_nom);
+            await reaction.users.remove(member.id);
+          } else {
+            await member.roles.add(Attente_Cotisant);
+          }
         }
       }
     }
