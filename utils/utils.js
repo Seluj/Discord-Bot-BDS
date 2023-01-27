@@ -153,8 +153,17 @@ function replaceAt(str, index, chr) {
  * Supprime tous les anciens fichiers pour éviter la multiplication et l'accumulation des données
  */
 function deleteOldestFiles() {
+  let dir = './serveur/';
+  if (!fs.existsSync(dir)) {
+    return;
+  }
+
   let pathRoles = './serveur/roles/';
   let pathChannel = './serveur/channels/';
+  if (!fs.existsSync(pathRoles) || !fs.existsSync(pathChannel)) {
+    return;
+  }
+
   const roles_files = fs.readdirSync(pathRoles).filter(file => file.startsWith('role_'));
   const channels_files = fs.readdirSync(pathChannel).filter(file => file.startsWith('channels_'));
   for (let i=0; i< roles_files.length; i++) {

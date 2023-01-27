@@ -19,6 +19,11 @@ function rolesFiles(guild) {
  * @param guild guild to check
  */
 function createRolesFiles(guild) {
+  let dir = "./serveur/roles";
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
   let filename = "./serveur/roles/role_" + guild.id + ".json";
   let roles_id = guild.roles.cache.map(m => m.id);
   let roles_name = guild.roles.cache.map((m => m.name));

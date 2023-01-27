@@ -20,6 +20,11 @@ function channelFiles(guild) {
  * @param guild guild to check
  */
 function createChannelFiles(guild) {
+  let dir = "./serveur/channels";
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
   let filename = "./serveur/channels/channels_" + guild.id + ".json";
   let channels_id = guild.channels.cache.map(m => m.id);
   let channels_name = guild.channels.cache.map((m => m.name));
