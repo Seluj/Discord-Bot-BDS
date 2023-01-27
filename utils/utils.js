@@ -30,7 +30,11 @@ function parseCSVFiles(path, separator) {
  * @returns {boolean} retourne true si
  */
 function checkRole(etudiant, id_role) {
-  return etudiant.roles.cache.some(role => role.id === id_role);
+  if (id_role === "null") {
+    return etudiant.roles.cache.size === 1;
+  } else {
+    return etudiant.roles.cache.some(role => role.id === id_role);
+  }
 }
 
 /**
