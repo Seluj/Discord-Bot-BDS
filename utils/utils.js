@@ -178,8 +178,30 @@ function deleteOldestFiles() {
         throw err;
     })
   }
-  console.log(`${roles_files.length} fichier(s) de rôles et ${channels_files.length} fichier(s) de salons ont été supprimé`);
+  log(`${roles_files.length} fichier(s) de rôles et ${channels_files.length} fichier(s) de salons ont été supprimé`);
 }
+
+
+function log(message) {
+  let dir = './logs/';
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+  let str = '';
+  let date = new Date();
+  let day = String(date.getDate()).padStart(2, '0');
+  let month = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let year = date.getFullYear();
+  let hour = String(date.getHours()).padStart(2, '0');
+  let minute = String(date.getMinutes()).padStart(2, '0');
+  let second = String(date.getSeconds()).padStart(2, '0');
+
+  str += '[' + day + '/' + month + '/' + year + ' ' + hour + ':' + minute + ':' + second + '] ' + message;
+  console.log(str);
+  fs.appendFileSync(dir + 'logTimed.txt', str + '\n');
+  fs.appendFileSync(dir + 'log.txt', message + '\n');
+}
+
 
 module.exports = {
   checkDate,
@@ -189,4 +211,5 @@ module.exports = {
   deleteOldestFiles,
   replace,
   checkName,
+  log,
 };

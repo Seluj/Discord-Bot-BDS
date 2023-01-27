@@ -1,5 +1,5 @@
 const fs = require("node:fs");
-const { replace } = require('./utils');
+const { replace, log } = require('./utils');
 
 /**
  * Create channel files for a given guild, compare if guild is a table or not
@@ -41,7 +41,7 @@ function createChannelFiles(guild) {
     if (err)
       throw err;
   })
-  console.log(`Fichier de salons pour ${guild} est créé`);
+  log(`Fichier de salons pour ${guild} est créé`);
 }
 
 module.exports = {

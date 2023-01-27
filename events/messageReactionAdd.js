@@ -1,4 +1,5 @@
 const { Events } = require('discord.js');
+const { log } = require('../utils/utils');
 
 module.exports = {
   name: Events.MessageReactionAdd,
@@ -22,12 +23,12 @@ module.exports = {
 
     if (reaction.message.channel.id === premier_pas) {
       if (reaction.emoji.name === '👍') {
-        console.log(`${user.tag} a réagi au message de règles`);
+        log(`${user.tag} a réagi au message de règles`);
         const { Attente_Cotisant, Change_de_nom } = require(`../serveur/roles/role_${reaction.message.guild.id}.json`);
 
         // Mise en place des rôles
         if (Attente_Cotisant === undefined || Change_de_nom === undefined) {
-          console.log("Aucun Role");
+          log("Aucun Role");
         } else {
           let member = await reaction.message.guild.members.fetch(user.id);
           let tmp = member.displayName.split(' ');

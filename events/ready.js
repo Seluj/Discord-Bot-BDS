@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { deleteOldestFiles } = require("../utils/utils");
+const { deleteOldestFiles, log } = require("../utils/utils");
 const { channelFiles } = require("../utils/channels_files");
 const { rolesFiles } = require("../utils/roles_files");
 
@@ -15,7 +15,7 @@ module.exports = {
     deleteOldestFiles();
     rolesFiles(guild);
     channelFiles(guild);
-    console.log(`Ready! Logged in as ${client.user.tag}`);
+    log(`Ready! Logged in as ${client.user.tag}`);
 
     const g = await client.guilds.fetch('1040600799434260502');
     const channel = g.channels.cache.get('1061602590938382376');

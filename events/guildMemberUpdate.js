@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { checkRole, checkName } = require("../utils/utils");
+const { checkRole, checkName, log } = require("../utils/utils");
 const { addRole, deleteRole } =require("../utils/roles");
 
 
@@ -16,11 +16,11 @@ module.exports = {
     if (checkRole(newMember, Bot) || checkRole(newMember, Membre_du_Bureau) || checkRole(newMember, Bureau_Restreints) || checkRole(newMember, Staff_Ski_UTBM) || checkRole(newMember, ESTA))
       return;
 
-    console.log(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
+    log(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
 
     // Notification sur le discord
     if (changement_de_pseudo === undefined ) {
-      console.log('Aucun Salon');
+      log('Aucun Salon');
     } else {
       let channel = newMember.guild.channels.cache.get(changement_de_pseudo);
       channel.send(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
@@ -33,7 +33,7 @@ module.exports = {
 
     // Mise en place des rôles
     if (Attente_Cotisant === undefined || Change_de_nom === undefined || Cotisants === undefined) {
-      console.log("Aucun Rôle");
+      log("Aucun Rôle");
     } else {
       deleteRole(newMember, Cotisants);
       if (checkName(newMember.displayName)) {

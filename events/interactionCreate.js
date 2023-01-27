@@ -1,4 +1,5 @@
 const { Events } = require('discord.js');
+const { log } = require('../utils/utils');
 
 module.exports = {
   name: Events.InteractionCreate,
@@ -10,7 +11,7 @@ module.exports = {
         console.error(`No command matching ${interaction.commandName} was found.`);
         return;
       }
-      console.log(`${interaction.member.user.tag} a entré la commande ${interaction.commandName}`);
+      log(`${interaction.member.user.tag} a entré la commande ${interaction.commandName}`);
 
       try {
         await command.execute(interaction);

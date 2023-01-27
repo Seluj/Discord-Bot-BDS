@@ -1,5 +1,5 @@
 const fs = require("node:fs");
-const { replace } = require('./utils');
+const { replace, log } = require('./utils');
 
 /**
  * Create role files for a given guild, compare if guild is a table or not
@@ -40,7 +40,7 @@ function createRolesFiles(guild) {
     if (err)
       throw err;
   })
-  console.log(`Fichier de rôles pour ${guild} est créé`);
+  log(`Fichier de rôles pour ${guild} est créé`);
 }
 
 module.exports = {
