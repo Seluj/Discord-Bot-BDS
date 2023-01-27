@@ -26,6 +26,11 @@ module.exports = {
       channel.send(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
     }
 
+    // Vérifie si le joueur possède déjà un role
+    if (checkRole(newMember, null) === true) {
+      return;
+    }
+
     // Mise en place des rôles
     if (Attente_Cotisant === undefined || Change_de_nom === undefined || Cotisants === undefined) {
       console.log("Aucun Rôle");
