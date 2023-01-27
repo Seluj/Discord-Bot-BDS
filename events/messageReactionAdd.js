@@ -33,7 +33,6 @@ module.exports = {
           let tmp = member.displayName.split(' ');
           if (tmp.length <= 1) {
             await member.send("Salut, renomme toi frérot et apprends à lire !! ");
-            await member.roles.add(Change_de_nom);
             await reaction.users.remove(member.id);
           } else {
             await member.roles.add(Attente_Cotisant);
