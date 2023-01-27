@@ -37,7 +37,7 @@ module.exports = {
         },
         {
           name: "Cotisation",
-          value: "Pour que tu puisse participer à n'importe quel activité sur le discord il faut que tu te sois renommé **__« Prénom NOM » __**.\nTout est automatisé à partir du moment où tu aura cliqué sur 👍, donc inutile de contacter quelqu'un du bureau ! Aussi, tu ne pourras pas revenir ici, donc si tu as cliqué : tu as lu ce petit texte !",
+          value: "Pour que tu puisse participer à n'importe quel activité sur le discord il faut que tu te sois renommé **__« Prénom NOM »__** (N'indique pas ta promo ou ton surnom)\nTout est automatisé à partir du moment où tu aura cliqué sur 👍, donc inutile de contacter quelqu'un du bureau ! \nSi tu vois toujours ce message c'est que tu ne l'as pas bien lu !",
           inline: false
         }
         ],
