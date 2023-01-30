@@ -26,22 +26,17 @@ module.exports = {
       channel.send(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
     }
 
-    // Vérifie si le joueur possède déjà un role
-    if (checkRole(newMember, null) === true) {
-      return;
-    }
-
     // Mise en place des rôles
     if (Attente_Cotisant === undefined || Change_de_nom === undefined || Cotisants === undefined) {
       log("Aucun Rôle");
     } else {
-      deleteRole(newMember, Cotisants);
-      if (checkName(newMember.displayName)) {
-        deleteRole(newMember, Change_de_nom);
-        addRole(newMember, Attente_Cotisant);
-      } else {
-        deleteRole(newMember, Attente_Cotisant);
-        addRole(newMember, Change_de_nom);
+      if (checkRole(newMember, Attente_Cotisant) || checkRole(newMember, Cotisants)) {
+        deleteRole(newMember, Cotisants);
+        if (checkName(newMember.displayName)) {
+          addRole(newMember, Attente_Cotisant);
+        } else {
+          deleteRole(newMember, Attente_Cotisant);
+        }
       }
     }
   },
