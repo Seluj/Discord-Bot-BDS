@@ -28,7 +28,6 @@ module.exports = {
         Attente_Cotisant,   // Les non cotisants
         Membre_du_Bureau,   // Les membres du bureau
         Bureau_Restreints,  // Les membres du bureau restreint
-        Staff_Ski_UTBM,     // Les membres du staff Ski'UTBM
         ESTA,               // Les membres de l'ESTA
         Bot                 // Les bots du serveur
       } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
@@ -41,7 +40,6 @@ module.exports = {
             if (checkRole(membersList[i], Bot) ||
               checkRole(membersList[i], Membre_du_Bureau) ||
               checkRole(membersList[i], Bureau_Restreints) ||
-              checkRole(membersList[i], Staff_Ski_UTBM) ||
               checkRole(membersList[i], ESTA))
               continue;
             if (!checkName(membersList[i].displayName)) {
