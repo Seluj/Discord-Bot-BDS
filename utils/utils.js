@@ -45,8 +45,7 @@ function checkRole(etudiant, id_role) {
 function checkName(name) {
   let nb = name.split(' ');
   if (nb.length >= 2) {
-    if (
-      name.indexOf("1") === -1 &&
+    return name.indexOf("1") === -1 &&
       name.indexOf("2") === -1 &&
       name.indexOf("3") === -1 &&
       name.indexOf("4") === -1 &&
@@ -57,12 +56,7 @@ function checkName(name) {
       name.indexOf("9") === -1 &&
       name.indexOf("0") === -1 &&
       name.indexOf("/") === -1 &&
-      name.indexOf(" - ") === -1
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+      name.indexOf(" - ") === -1;
   } else {
     return false;
   }
