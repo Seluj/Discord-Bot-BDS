@@ -11,7 +11,7 @@ module.exports = {
       return;
 
     const { changement_de_pseudo } = require(`../serveur/channels/channels_${newMember.guild.id}.json`);
-    const { Attente_Cotisant, Change_de_nom, Cotisants, Staff_Ski_UTBM, ESTA, Membre_du_Bureau, Bot, Bureau_Restreints } = require(`../serveur/roles/role_${newMember.guild.id}.json`);
+    const { Attente_Cotisant, Cotisants, Staff_Ski_UTBM, ESTA, Membre_du_Bureau, Bot, Bureau_Restreints } = require(`../serveur/roles/role_${newMember.guild.id}.json`);
     // Contrôles sur les rôles
     if (checkRole(newMember, Bot) || checkRole(newMember, Membre_du_Bureau) || checkRole(newMember, Bureau_Restreints) || checkRole(newMember, Staff_Ski_UTBM) || checkRole(newMember, ESTA))
       return;
@@ -27,7 +27,7 @@ module.exports = {
     }
 
     // Mise en place des rôles
-    if (Attente_Cotisant === undefined || Change_de_nom === undefined || Cotisants === undefined) {
+    if (Attente_Cotisant === undefined || Cotisants === undefined) {
       log("Aucun Rôle");
     } else {
       if (checkRole(newMember, Attente_Cotisant) || checkRole(newMember, Cotisants)) {

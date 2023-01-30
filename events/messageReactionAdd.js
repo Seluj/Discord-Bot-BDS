@@ -24,10 +24,10 @@ module.exports = {
     if (reaction.message.channel.id === premier_pas) {
       if (reaction.emoji.name === '👍') {
         log(`${user.tag} a réagi au message de règles`);
-        const { Attente_Cotisant, Change_de_nom } = require(`../serveur/roles/role_${reaction.message.guild.id}.json`);
+        const { Attente_Cotisant } = require(`../serveur/roles/role_${reaction.message.guild.id}.json`);
 
         // Mise en place des rôles
-        if (Attente_Cotisant === undefined || Change_de_nom === undefined) {
+        if (Attente_Cotisant === undefined) {
           log("Aucun Role");
         } else {
           let member = await reaction.message.guild.members.fetch(user.id);

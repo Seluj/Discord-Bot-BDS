@@ -26,7 +26,6 @@ module.exports = {
       const {
         Cotisants,          // Les cotisants
         Attente_Cotisant,   // Les non cotisants
-        Change_de_nom,      // Ceux qui doivent changer de nom
         Membre_du_Bureau,   // Les membres du bureau
         Bureau_Restreints,  // Les membres du bureau restreint
         Staff_Ski_UTBM,     // Les membres du staff Ski'UTBM
@@ -46,12 +45,10 @@ module.exports = {
               checkRole(membersList[i], ESTA))
               continue;
             if (!checkName(membersList[i].displayName)) {
-              addRole(membersList[i], Change_de_nom);
               deleteRole(membersList[i], Cotisants);
               deleteRole(membersList[i], Attente_Cotisant);
               nb_changer++;
             } else {
-              deleteRole(membersList[i], Change_de_nom);
               pseudo_discord = membersList[i].displayName;
               pseudo_discord = pseudo_discord.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
               let j = 0;
