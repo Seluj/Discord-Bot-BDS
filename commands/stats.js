@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
+const { checkRole } = require("../utils/utils");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -6,28 +7,33 @@ module.exports = {
     .setDescription('Mets a jour les statisques du serveur')
     .setDefaultMemberPermissions(0),
   async execute(interaction) {
-    console.log("à faire");
-    await interaction.reply({
-      content: "à faire",
-      ephemeral: true,
-    });
-    /*
-    await interaction.reply({content:`Server Stats is updating...`, ephemeral: true});
-    let channel = interaction.guild.channels.cache.get(c_cotisant);
-    let nb = interaction.guild.roles.cache.get(r_cotisant).members;
-    nb = nb.map(m => m.displayName);
-    nb = nb.length;
-    channel.setName(`🏃 Cotisants : ${nb}`);
+    let membersList;
+    let nb_total = 0, nb_coti = 0, nb_non_coti = 0, nb_esta = 0;
+    // Récupération des IDs des rôles
+    const { Cotisants, Attente_Cotisant, ESTA } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
+    interaction.guild.members.fetch()
+      .then((members) => {
+        membersList = members.map(m => m);
+        for (let i = 0; i < membersList.length; i++) {
+          nb_total++;
+          if (checkRole(membersList[i], Cotisants))
+            nb_coti++;
+          else if (checkRole(membersList[i], Attente_Cotisant))
+            nb_non_coti++;
+          else if (checkRole(membersList[i], ESTA))
+            nb_esta++;
+        }
+        interaction.reply(`Sur ${nb_total} membres:\n> ${nb_coti} sont cotisants\n> ${nb_non_coti} sont non cotisants\n> ${nb_esta} sont de l'ESTA\nMerci !`);
 
-    channel = interaction.guild.channels.cache.get(c_nonCotisant);
-    nb = interaction.guild.roles.cache.get(r_nonCotisant).members;
-    nb = nb.map(m => m.displayName);
-    nb = nb.length;
-    channel.setName(`🦽 Non Cotisants : ${nb}`);
+        let channel = interaction.guild.channels.cache.get('1069747433950683208');
+        channel.setName(`🏃 Cotisants : ${nb_coti}`);
 
-    channel = interaction.guild.channels.cache.get(c_total);
-    let total = interaction.guild.memberCount;
-    channel.setName(`🌍 Total : ${total}`);
-    */
+        channel = interaction.guild.channels.cache.get('1069748971100196986');
+        channel.setName(`🦽 Non Cotisants : ${nb_non_coti}`);
+
+        channel = interaction.guild.channels.cache.get('1069749123022061689');
+        channel.setName(`🌍 Total : ${nb_total}`);
+      })
+      .catch(console.error);
   },
 };
