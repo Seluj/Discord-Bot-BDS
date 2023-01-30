@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { log } = require('../utils/utils');
+const { log, checkName} = require('../utils/utils');
 
 module.exports = {
   name: Events.MessageReactionAdd,
@@ -31,9 +31,9 @@ module.exports = {
           log("Aucun Role");
         } else {
           let member = await reaction.message.guild.members.fetch(user.id);
-          let tmp = member.displayName.split(' ');
-          if (tmp.length <= 1) {
-            await member.send("Salut, renomme toi frérot et apprends à lire !! ");
+          //let tmp = member.displayName.split(' ');
+          if (!checkName(member.displayName)) {
+            await member.send("Salut, je crois que tu n'as pas bien lu, renomme toi correctement Prénom Nom, sans ta promo et sans ton surnom !! ");
             await reaction.users.remove(member.id);
           } else {
             await member.roles.add(Attente_Cotisant);
