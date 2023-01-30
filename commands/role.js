@@ -11,11 +11,11 @@ module.exports = {
       option
         .setName('role_id')
         .setDescription('ID du role à chercher')
-        .setRequired(true)),
+        .setRequired(false)),
   async execute(interaction) {
 
     //Variables
-
+    await interaction.deferReply();
     let membersList;
     let nb_total = 0, nb_changer = 0, nb_coti = 0, nb_non_coti = 0, nb_reste = 0;
     let role_id = interaction.options.getRole('role_id');
@@ -74,7 +74,7 @@ module.exports = {
             }
           }
           nb_reste = nb_total - (nb_coti + nb_non_coti + nb_changer);
-          interaction.reply(`Sur ${nb_total} membres:\n> ${nb_coti} sont cotisants\n> ${nb_non_coti} sont non cotisants\n> ${nb_changer} doivent changer de nom\n> ${nb_reste} sont des exceptions\nMerci !`);
+          interaction.editReply(`Sur ${nb_total} membres:\n> ${nb_coti} sont cotisants\n> ${nb_non_coti} sont non cotisants\n> ${nb_changer} doivent changer de nom\n> ${nb_reste} sont des exceptions\nMerci !`);
         })
         .catch(console.error);
     } else {
@@ -85,7 +85,7 @@ module.exports = {
             if (checkRole(membersList[i], role_id.id))
               nb_total++;
           }
-          interaction.reply(`Il y a ${nb_total} membres avec le role "${role_id.name}"`);
+          interaction.editReply(`Il y a ${nb_total} membres avec le role "${role_id.name}"`);
         })
         .catch(console.error);
     }
