@@ -44,7 +44,28 @@ function checkRole(etudiant, id_role) {
  */
 function checkName(name) {
   let nb = name.split(' ');
-  return nb.length >= 2;
+  if (nb.length >= 2) {
+    if (
+      name.indexOf("1") === -1 &&
+      name.indexOf("2") === -1 &&
+      name.indexOf("3") === -1 &&
+      name.indexOf("4") === -1 &&
+      name.indexOf("5") === -1 &&
+      name.indexOf("6") === -1 &&
+      name.indexOf("7") === -1 &&
+      name.indexOf("8") === -1 &&
+      name.indexOf("9") === -1 &&
+      name.indexOf("0") === -1 &&
+      name.indexOf("/") === -1 &&
+      name.indexOf(" - ") === -1
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }
 
 /**
