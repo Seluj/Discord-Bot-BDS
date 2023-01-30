@@ -19,9 +19,9 @@ module.exports = {
       return;
     }
 
-    const { premier_pas } = require(`../serveur/channels/channels_${reaction.message.guild.id}.json`);
+    const { ligne_de_départ } = require(`../serveur/channels/channels_${reaction.message.guild.id}.json`);
 
-    if (reaction.message.channel.id === premier_pas) {
+    if (reaction.message.channel.id === ligne_de_départ) {
       if (reaction.emoji.name === '👍') {
         log(`${user.tag} a réagi au message de règles`);
         const { Attente_Cotisant } = require(`../serveur/roles/role_${reaction.message.guild.id}.json`);
