@@ -1,11 +1,43 @@
 const { SlashCommandBuilder } = require('discord.js');
+const { checkRole, log } = require('../utils/utils');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ffsu')
         .setDescription('Effecte le rôle ffsu aux bonnes personnes')
-        .setDefaultMemberPermissions(0),
+        .setDefaultMemberPermissions(0)
+      .addSubcommand(
+        subcommand =>
+          subcommand
+            .setName('remove')
+            .setDescription('Supprime le rôle ffsu aux bonnes personnes')
+      )
+      .addSubcommand(subcommand =>
+        subcommand
+          .setName('add')
+          .setDescription('Ajoute le rôle ffsu aux bonnes personnes')
+      ),
     async execute(interaction) {
-        interaction.reply({content: "ne fait rien", ephemeral:true});
+        if (interaction.options.getSubcommand() === "remove") {
+            const { Cotisants, ESTA, FFSU, Respo_FFSU } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
+            let membersWithRole = interaction.guild.roles.cache.get(FFSU).members;
+            let nb = 0;
+            let membersID = membersWithRole.map(m => m.id);
+            let membersList = membersWithRole.map(m => m);
+            for (let i = 0; i < membersID.length; i++)
+            {
+                if (!(checkRole(membersList[i], Cotisants) || checkRole(membersList[i], ESTA) || checkRole(membersList[i], Respo_FFSU))) {
+                    membersList[i].roles.remove(FFSU);
+                    nb++;
+                }
+            }
+            await interaction.reply({content: `Le rôle ffsu a été supprimé à ${nb} personnes`, ephemeral: false});
+            log(`Le rôle ffsu a été supprimé à ${nb} personnes`);
+        } else if (interaction.options.getSubcommand() === "add") {
+            await interaction.reply({content: `à faire`, ephemeral: true});
+        } else {
+
+        }
+
     },
 };
