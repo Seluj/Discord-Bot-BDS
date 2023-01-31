@@ -8,7 +8,7 @@ module.exports = {
     .setDefaultMemberPermissions(0),
   async execute(interaction) {
     let membersList;
-    let nb_total = 0, nb_coti = 0, nb_non_coti = 0, nb_esta = 0;
+    let nb_total = 0, nb_coti = 0, nb_non_coti = 0, nb_esta = 0, nb_reste = 0, nb_bot = 0;
     // Récupération des IDs des rôles
     const { Cotisants, Attente_Cotisant, ESTA } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
     interaction.guild.members.fetch()
@@ -22,8 +22,11 @@ module.exports = {
             nb_non_coti++;
           else if (checkRole(membersList[i], ESTA))
             nb_esta++;
+          else if (membersList[i].user.bot)
+            nb_bot++;
         }
-        interaction.reply(`Sur ${nb_total} membres:\n> ${nb_coti} sont cotisants\n> ${nb_non_coti} sont non cotisants\n> ${nb_esta} sont de l'ESTA\nMerci !`);
+        nb_reste = nb_total - (nb_coti + nb_non_coti + nb_esta + nb_bot);
+        interaction.reply(`Sur **${nb_total}** membres:\n> **${nb_coti}** sont cotisants\n> **${nb_non_coti}** sont non cotisants\n> **${nb_reste}** ne sont pas renommés\n> **${nb_esta}** sont de l'ESTA\n> **${nb_bot}** sont des bots\nMerci !`);
 
         let channel = interaction.guild.channels.cache.get('1069747433950683208');
         channel.setName(`🏃 Cotisants : ${nb_coti}`);
@@ -31,8 +34,11 @@ module.exports = {
         channel = interaction.guild.channels.cache.get('1069748971100196986');
         channel.setName(`🦽 Non Cotisants : ${nb_non_coti}`);
 
+        channel = interaction.guild.channels.cache.get('1069934157662277723');
+        channel.setName(`💀 Unknown : ${nb_reste}`);
+
         channel = interaction.guild.channels.cache.get('1069749123022061689');
-        channel.setName(`🌍 Total : ${nb_total}`);
+        channel.setName(`🌍 Total : ${nb_total-nb_bot}`);
       })
       .catch(console.error);
   },
