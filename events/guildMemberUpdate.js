@@ -20,7 +20,7 @@ module.exports = {
 
     // Notification sur le discord
     if (changement_de_pseudo === undefined ) {
-      log('Aucun Salon');
+      log("Aucun Salon 'changement de pseudo'");
     } else {
       let channel = newMember.guild.channels.cache.get(changement_de_pseudo);
       channel.send(`${newMember.user.tag} a changé son pseudo en ${newMember.displayName}`);
@@ -28,7 +28,7 @@ module.exports = {
 
     // Mise en place des rôles
     if (Attente_Cotisant === undefined || Cotisants === undefined) {
-      log("Aucun Rôle");
+      log("Pas de rôle 'Attente Cotisant' ou 'Cotisant'");
     } else {
       if (checkRole(newMember, Attente_Cotisant) || checkRole(newMember, Cotisants)) {
         deleteRole(newMember, Cotisants);

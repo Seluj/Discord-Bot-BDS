@@ -10,7 +10,7 @@ module.exports = {
 
     // Notification sur le discord
     if (arrivée === undefined) {
-      log("Aucun salon");
+      log("Aucun salon 'arrivée'");
     } else {
       let channel = member.guild.channels.cache.get(arrivée);
       channel.send(`${member.user.tag} joined`);

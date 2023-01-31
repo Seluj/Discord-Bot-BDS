@@ -28,10 +28,9 @@ module.exports = {
 
         // Mise en place des rôles
         if (Attente_Cotisant === undefined) {
-          log("Aucun Role");
+          log("Aucun Role 'Attente Cotisant'");
         } else {
           let member = await reaction.message.guild.members.fetch(user.id);
-          //let tmp = member.displayName.split(' ');
           if (!checkName(member.displayName)) {
             await member.send("Salut, je crois que tu n'as pas bien lu, renomme toi correctement Prénom Nom, sans ta promo et sans ton surnom !! ");
             await reaction.users.remove(member.id);
