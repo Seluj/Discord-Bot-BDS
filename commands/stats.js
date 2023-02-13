@@ -32,7 +32,7 @@ module.exports = {
         channel.setName(`🏃 Cotisants : ${nb_coti}`);
 
         channel = interaction.guild.channels.cache.get('1069748971100196986');
-        channel.setName(`🦽 Non Cotisants : ${nb_non_coti}`);
+        channel.setName(`🌴 Non Cotisants : ${nb_non_coti}`);
 
         channel = interaction.guild.channels.cache.get('1069934157662277723');
         channel.setName(`💀 Unknown : ${nb_reste}`);
