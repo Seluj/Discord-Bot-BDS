@@ -197,7 +197,7 @@ function deleteOldestFiles() {
 }
 
 
-function log(message) {
+function log(message, channel_log) {
   let dir = './logs/';
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
@@ -215,6 +215,12 @@ function log(message) {
   console.log(str);
   fs.appendFileSync(dir + 'logTimed.txt', str + '\n');
   fs.appendFileSync(dir + 'log.txt', message + '\n');
+
+  if (channel_log !== undefined && channel_log !== null) {
+    channel_log.send(str);
+  } else {
+    console.log('channel_log is undefined or null');
+  }
 }
 
 
