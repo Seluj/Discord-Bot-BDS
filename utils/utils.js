@@ -218,8 +218,6 @@ function log(message, channel_log) {
 
   if (channel_log !== undefined && channel_log !== null) {
     channel_log.send(str);
-  } else {
-    console.log('channel_log is undefined or null');
   }
 }
 

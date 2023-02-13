@@ -33,8 +33,7 @@ module.exports = {
             let nb = 0;
             let membersID = membersWithRole.map(m => m.id);
             let membersList = membersWithRole.map(m => m);
-            for (let i = 0; i < membersID.length; i++)
-            {
+            for (let i = 0; i < membersID.length; i++) {
                 if (!(checkRole(membersList[i], Cotisants) || checkRole(membersList[i], ESTA) || checkRole(membersList[i], Respo_FFSU))) {
                     membersList[i].roles.remove(FFSU);
                     nb++;
@@ -47,6 +46,5 @@ module.exports = {
         } else {
 
         }
-
     },
 };
