@@ -19,16 +19,23 @@ module.exports = {
       return;
     }
 
-    const { ligne_de_départ } = require(`../serveur/channels/channels_${reaction.message.guild.id}.json`);
+    const { ligne_de_départ, logs } = require(`../serveur/channels/channels_${reaction.message.guild.id}.json`);
+
+    let channel_logs = null;
+    if (logs === undefined) {
+      log("Aucun salon 'logs'", null);
+    } else {
+      channel_logs = reaction.message.guild.channels.cache.get(logs);
+    }
 
     if (reaction.message.channel.id === ligne_de_départ) {
       if (reaction.emoji.name === '👍') {
-        log(`${user.tag} a réagi au message de règles`);
+        log(`${user.tag} a réagi au message de règles`, channel_logs);
         const { Attente_Cotisant } = require(`../serveur/roles/role_${reaction.message.guild.id}.json`);
 
         // Mise en place des rôles
         if (Attente_Cotisant === undefined) {
-          log("Aucun Role 'Attente Cotisant'");
+          log("Aucun Role 'Attente Cotisant'", channel_logs);
         } else {
           let member = await reaction.message.guild.members.fetch(user.id);
           if (!checkName(member.displayName)) {

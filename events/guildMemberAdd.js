@@ -4,9 +4,16 @@ const { log } = require('../utils/utils');
 module.exports = {
   name: Events.GuildMemberAdd,
   async execute(member) {
-    const { arrivée } = require(`../serveur/channels/channels_${member.guild.id}.json`);
+    const { arrivée, logs, commandes } = require(`../serveur/channels/channels_${member.guild.id}.json`);
 
-    log(`${member.user.tag} a rejoins le serveur ${member.guild.name}`);
+    let channel_logs = null;
+    if (logs === undefined) {
+      log("Aucun salon 'logs'", null);
+    } else {
+      channel_logs = member.guild.channels.cache.get(logs);
+    }
+
+    log(`${member.user.tag} a rejoins le serveur ${member.guild.name}`, channel_logs);
 
     // Notification sur le discord
     if (arrivée === undefined) {
@@ -15,5 +22,13 @@ module.exports = {
       let channel = member.guild.channels.cache.get(arrivée);
       channel.send(`${member.user.tag} joined`);
     }
+
+    if (commandes === undefined) {
+      log("Aucun salon 'commandes'");
+    } else {
+      let channel = member.guild.channels.cache.get(commandes);
+      channel.send(`bds!stats`);
+    }
+
   },
 };

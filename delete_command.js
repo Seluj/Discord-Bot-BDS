@@ -8,5 +8,5 @@ const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
 // for global commands
 rest.put(Routes.applicationCommands(process.env.CLIENTID), { body: [] })
-  .then(() => log('Successfully deleted all application commands.'))
+  .then(() => log('Successfully deleted all application commands.', null))
   .catch(console.error);

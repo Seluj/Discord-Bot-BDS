@@ -20,6 +20,15 @@ module.exports = {
     async execute(interaction) {
         if (interaction.options.getSubcommand() === "remove") {
             const { Cotisants, ESTA, FFSU, Respo_FFSU } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
+            const { logs } = require(`../serveur/channels/channels_${interaction.guild.id}.json`)
+
+            let channel_logs = null;
+            if (logs === undefined) {
+                log("Aucun salon 'logs'", null);
+            } else {
+                channel_logs = interaction.guild.channels.cache.get(logs);
+            }
+
             let membersWithRole = interaction.guild.roles.cache.get(FFSU).members;
             let nb = 0;
             let membersID = membersWithRole.map(m => m.id);
@@ -32,7 +41,7 @@ module.exports = {
                 }
             }
             await interaction.reply({content: `Le rôle ffsu a été supprimé à ${nb} personnes`, ephemeral: false});
-            log(`Le rôle ffsu a été supprimé à ${nb} personnes`);
+            log(`Le rôle ffsu a été supprimé à ${nb} personnes`, channel_logs);
         } else if (interaction.options.getSubcommand() === "add") {
             await interaction.reply({content: `à faire`, ephemeral: true});
         } else {
