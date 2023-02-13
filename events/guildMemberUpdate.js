@@ -10,7 +10,7 @@ module.exports = {
     if (oldMember.displayName === newMember.displayName)
       return;
 
-    const { changement_de_pseudo, logs } = require(`../serveur/channels/channels_${newMember.guild.id}.json`);
+    const { changement_de_pseudo, logs, commandes } = require(`../serveur/channels/channels_${newMember.guild.id}.json`);
     const { Attente_Cotisant, Cotisants, Staff_Ski_UTBM, ESTA, Membre_du_Bureau, Bot, Bureau_Restreints } = require(`../serveur/roles/role_${newMember.guild.id}.json`);
     // Contrôles sur les rôles
     if (checkRole(newMember, Bot) || checkRole(newMember, Membre_du_Bureau) || checkRole(newMember, Bureau_Restreints) || checkRole(newMember, Staff_Ski_UTBM) || checkRole(newMember, ESTA))
@@ -45,6 +45,14 @@ module.exports = {
           deleteRole(newMember, Attente_Cotisant);
         }
       }
+    }
+
+    // Envoi des stats
+    if (commandes === undefined) {
+      log("Aucun salon 'commandes'");
+    } else {
+      let channel = newMember.guild.channels.cache.get(commandes);
+      channel.send(`bds!stats!update`);
     }
   },
 };

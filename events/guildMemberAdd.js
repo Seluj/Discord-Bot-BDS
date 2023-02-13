@@ -27,7 +27,7 @@ module.exports = {
       log("Aucun salon 'commandes'");
     } else {
       let channel = member.guild.channels.cache.get(commandes);
-      channel.send(`bds!stats`);
+      channel.send(`bds!stats!new`);
     }
 
   },
