@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { addRole, deleteRole } = require('../utils/roles');
+const { log } = require("../utils/utils");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -77,19 +78,39 @@ module.exports = {
         )
     ),
   async execute(interaction) {
+    // Récupération des IDs des rôles
+    const {
+      Cotisants,          // Les cotisants
+      Membre_du_Bureau,   // Les membres du bureau
+      ESTA,               // Les membres de l'ESTA
+    } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
     let sport = interaction.options.getString('sport');
+
+    const { logs } = require(`../serveur/channels/channels_${interaction.guild.id}.json`)
+
+    let channel_logs = null;
+    if (logs === undefined) {
+      log("Aucun salon 'logs'", null);
+    } else {
+      channel_logs = interaction.guild.channels.cache.get(logs);
+    }
 
     let id = interaction.guild.roles.cache.find(role => role.name === sport);
     if (id === undefined) {
-      await interaction.reply({content: `Le rôle ${sport} n'existe pas`, ephemeral: true});
+      await interaction.reply({content: `Le rôle n'existe pas`, ephemeral: true});
+      log(`Le rôle ${sport} n'existe pas`, channel_logs);
     } else {
       let member = interaction.member;
-      if (member.roles.cache.has(id.id)) {
-        deleteRole(member, id);
-        await interaction.reply({content: `Le rôle ${sport} a été supprimé`, ephemeral: true});
+      if (member.roles.cache.has(Cotisants) || member.roles.cache.has(Membre_du_Bureau) || member.roles.cache.has(ESTA)) {
+        if (member.roles.cache.has(id.id)) {
+          deleteRole(member, id);
+          await interaction.reply({content: `Le rôle a été supprimé`, ephemeral: true});
+        } else {
+          addRole(member, id);
+          await interaction.reply({content: `Le rôle a été ajouté`, ephemeral: true});
+        }
       } else {
-        addRole(member, id);
-        await interaction.reply({content: `Le rôle ${sport} a été ajouté`, ephemeral: true});
+        await interaction.reply({content: `Vous n'avez pas le droit de modifier vos sports`, ephemeral: true});
       }
     }
   },
