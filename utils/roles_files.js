@@ -40,7 +40,7 @@ function createRolesFiles(guild) {
     if (err)
       throw err;
   })
-  log(`Fichier de rôles pour ${guild} est créé`);
+  log(`Fichier de rôles pour ${guild} est créé`, null);
 }
 
 module.exports = {
