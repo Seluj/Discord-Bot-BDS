@@ -1,5 +1,6 @@
 const fs = require("node:fs");
 const { parse } = require("csv-parse");
+const excludeCharactere = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "/", "(", ")", " - ", "{", "}", "[", "]"];
 
 /**
  * Parse CSV files function
@@ -45,21 +46,24 @@ function checkRole(etudiant, id_role) {
 function checkName(name) {
   let nb = name.split(' ');
   if (nb.length >= 2) {
-    return name.indexOf("1") === -1 &&
-      name.indexOf("2") === -1 &&
-      name.indexOf("3") === -1 &&
-      name.indexOf("4") === -1 &&
-      name.indexOf("5") === -1 &&
-      name.indexOf("6") === -1 &&
-      name.indexOf("7") === -1 &&
-      name.indexOf("8") === -1 &&
-      name.indexOf("9") === -1 &&
-      name.indexOf("0") === -1 &&
-      name.indexOf("/") === -1 &&
-      name.indexOf(" - ") === -1;
+    return checkCharacter(name, excludeCharactere);
   } else {
     return false;
   }
+}
+
+function checkCharacter(name, characters) {
+  let returned = true;
+  if (Array.isArray(characters)) {
+    for (let i = 0; i < characters.length; i++) {
+      if (name.indexOf(characters[i]) !== -1)
+        returned = false;
+    }
+  } else {
+    if (name.indexOf(characters) !== -1)
+      returned = false;
+  }
+  return returned;
 }
 
 /**
