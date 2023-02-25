@@ -8,8 +8,8 @@ module.exports = {
     .setDescription('Mets a jour les sports')
     .addSubcommand(subcommand =>
       subcommand
-        .setName('indoors')
-        .setDescription('Mets a jour les sports indoor')
+        .setName('indoor')
+        .setDescription('Mets a jour les sports intérieurs')
         .addStringOption(option =>
           option
             .setName('sport')
@@ -32,8 +32,8 @@ module.exports = {
             )))
     .addSubcommand(subcommand =>
       subcommand
-        .setName('outdoors')
-        .setDescription('Mets a jour les sports outdoor')
+        .setName('outdoor')
+        .setDescription('Mets a jour les sports extérieur')
         .addStringOption(option =>
           option
             .setName('sport')
@@ -63,7 +63,7 @@ module.exports = {
     .addSubcommand(subcommand =>
       subcommand
         .setName('in-out')
-        .setDescription('Mets a jour les sports autres')
+        .setDescription('Mets a jour les sports qui peuvent se pratiquer à l\'intérieur comme à l\'extérieur')
         .addStringOption(option =>
           option
             .setName('sport')
