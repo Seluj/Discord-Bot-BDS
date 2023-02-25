@@ -21,6 +21,8 @@ module.exports = {
     let role_id = interaction.options.getRole('role_id');
     let bool_cotisant = false;
     let etudiant = parseCSVFiles("./adherent.csv", ";");
+
+    // Si l'option role_id n'est pas donnée
     if (role_id === null) {
       // Récupération des IDs des rôles
       const {
@@ -82,6 +84,8 @@ module.exports = {
           interaction.editReply(`Sur **${nb_total}** membres:\n> **${nb_coti}** sont cotisants\n> **${nb_non_coti}** sont non cotisants\n> **${nb_changer}** doivent changer de nom\n> **${nb_exception}** sont des exceptions\nLes changements sont en cours, Merci !`);
         })
         .catch(console.error);
+
+    // Si l'option role_id est donnée
     } else {
       interaction.guild.members.fetch()
         .then((members) => {

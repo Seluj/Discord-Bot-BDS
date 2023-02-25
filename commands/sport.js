@@ -84,6 +84,8 @@ module.exports = {
       Membre_du_Bureau,   // Les membres du bureau
       ESTA,               // Les membres de l'ESTA
     } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
+
+    // Récupération du sport choisi
     let sport = interaction.options.getString('sport');
 
     const { logs } = require(`../serveur/channels/channels_${interaction.guild.id}.json`)
@@ -95,11 +97,14 @@ module.exports = {
       channel_logs = interaction.guild.channels.cache.get(logs);
     }
 
+    // Vérification de l'existence du rôle et récupération de son ID
     let id = interaction.guild.roles.cache.find(role => role.name === sport);
     if (id === undefined) {
+      // Le rôle n'existe pas, on envoie un message d'erreur
       await interaction.reply({content: `Le rôle n'existe pas`, ephemeral: true});
       log(`Le rôle ${sport} n'existe pas`, channel_logs);
     } else {
+      // Le rôle existe, on ajoute ou on supprime le rôle si le membre est cotisant
       let member = interaction.member;
       if (member.roles.cache.has(Cotisants) || member.roles.cache.has(Membre_du_Bureau) || member.roles.cache.has(ESTA)) {
         if (member.roles.cache.has(id.id)) {
