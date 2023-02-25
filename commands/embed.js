@@ -79,7 +79,7 @@ module.exports = {
         fields: [
           {
             name: "Utilisation",
-            value: "Vous aurez remarqué quelques changements sur ce Discord et bien les sports c'est pareil. Maintenant, vous pouvez utiliser la commande /sport pour vous attribuer un sport. Les sports sont divisés en 3 parties : indoor, outdoor et in-out",
+            value: "Vous aurez remarqué quelques changements sur ce Discord et bien les sports c'est pareil. Maintenant, vous pouvez utiliser la commande __**/sport**__ pour vous attribuer un sport. Les sports sont divisés en 3 parties : indoor, outdoor et in-out",
             inline: false
           },
           {
@@ -104,7 +104,7 @@ module.exports = {
           },
           {
             name: "Point info",
-            value: "Vous ne pouvez pas vous tromper: la commande s'autocomplète, si toute fois vous avez un problème vous pouvez toujours contacter Jules - Respo Discord",
+            value: "Vous ne pouvez pas vous tromper: la commande s'autocomplète, si toute fois vous avez un problème vous pouvez toujours contacter:\n**Jules - Respo Discord**",
             inline: false
           }
         ]
