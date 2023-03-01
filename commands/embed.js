@@ -79,7 +79,7 @@ module.exports = {
         fields: [
           {
             name: "Utilisation",
-            value: "Vous aurez remarqué quelques changements sur ce Discord et bien les sports c'est pareil. Maintenant, vous pouvez utiliser la commande __**/sport**__ pour vous attribuer un sport. Les sports sont divisés en 3 parties : indoor, outdoor et in-out",
+            value: "Vous pouvez utiliser la commande __**/sport**__ pour vous attribuer un sport. Les sports sont divisés en 3 catégories : indoor, outdoor et in-out",
             inline: false
           },
           {
