@@ -1,11 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits  } = require('discord.js');
 const { parseCSVFiles, affichageJoueur, checkDate } = require("../utils/utils");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('player')
     .setDescription('Réalise une recherche dans la bdd en fonction du nom ou du prénom')
-    .setDefaultMemberPermissions(0)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageEvents)
     .addSubcommand(subcommand =>
       subcommand
         .setName('prénom')
@@ -38,7 +38,7 @@ module.exports = {
       // Test pour la subCommand "prenom"
     if (interaction.options.getSubcommand() === "prénom") {
       opt = interaction.options.getString('prénom');
-      await interaction.reply(`Recherche du prénom : ${opt}`);
+      await interaction.reply({content: `Recherche du prénom : ${opt}`, ephemeral: true});
       opt = opt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (let i=0; i<etudiant.length; i++) {
         data = etudiant[i][1];
@@ -52,7 +52,7 @@ module.exports = {
       // Test pour la subCommand "nom"
     } else if (interaction.options.getSubcommand() === "nom") {
       opt = interaction.options.getString('nom');
-      await interaction.reply(`Recherche du nom : ${opt}`);
+      await interaction.reply({content: `Recherche du nom : ${opt}`, ephemeral:true});
       opt = opt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (let i=0; i<etudiant.length; i++) {
         data = etudiant[i][0];
@@ -75,7 +75,7 @@ module.exports = {
 
     // Écriture du résultat
     for (let i = 0; i < tmp_str.length; i++) {
-      await interaction.followUp(tmp_str[i]);
+      await interaction.followUp({content: tmp_str[i], ephemeral: true});
     }
   },
 };
