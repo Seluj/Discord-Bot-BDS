@@ -18,17 +18,17 @@ module.exports = {
             .addChoices(
               { name: 'Basket', value: 'Basket' },
               { name: 'Badminton', value: 'Badminton' },
-              { name: 'Arts Martiaux', value: 'Arts_Martiaux' },
+              { name: 'Arts Martiaux', value: 'Arts Martiaux' },
               { name: 'Boxe', value: 'Boxe' },
               { name: 'Boxe Française', value: 'BoxeFr' },
               { name: 'Futsal', value: 'Futsal' },
               { name: 'Gymnastique', value: 'Gymnastique' },
               { name: 'Handball', value: 'Handball' },
-              { name: 'Judo-Karaté', value: 'Judo_Karaté' },
+              { name: 'Judo-Karaté', value: 'Judo-Karaté' },
               { name: 'Kudo', value: 'Kudo' },
               { name: 'Musculation', value: 'Musculation' },
               { name: 'Natation', value: 'Natation' },
-              { name: 'Tennis de Table', value: 'Tennis_de_Table' },
+              { name: 'Tennis de Table', value: 'Tennis-de-Table' },
             )))
     .addSubcommand(subcommand =>
       subcommand
@@ -43,7 +43,7 @@ module.exports = {
               { name: 'Athlétisme', value: 'Athlé' },
               { name: 'Baseball', value: 'Baseball' },
               { name: 'Course à Pied', value: 'CAP' },
-              { name: 'Course d\'Orientation', value: 'Course_Orientation' },
+              { name: 'Course d\'Orientation', value: 'Course-Orientation' },
               { name: 'Football', value: 'Football' },
               { name: 'Football Américain', value: 'FootUS' },
               { name: 'Golf', value: 'Golf' },
@@ -52,7 +52,7 @@ module.exports = {
               { name: 'Rugby', value: 'Rugby' },
               { name: 'Skate', value: 'Skate' },
               { name: 'Spikeball', value: 'Spikeball' },
-              { name: 'Street Workout', value: 'Street_Workout' },
+              { name: 'Street Workout', value: 'Street-Workout' },
               { name: 'Tennis', value: 'Tennis' },
               { name: 'Ultimate', value: 'Ultimate' },
               { name: 'VTT', value: 'VTT' },
@@ -70,7 +70,7 @@ module.exports = {
             .setDescription('Sport à ajouter')
             .setRequired(true)
             .addChoices(
-              { name: 'Créneau Féminin', value: 'Créneau_Féminin' },
+              { name: 'Créneau Féminin', value: 'Créneau Féminin' },
               { name: 'Escalade', value: 'Escalade' },
               { name: 'Volleyball', value: 'Volley' },
               { name: 'Yoga', value: 'Yoga' },
