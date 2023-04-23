@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { parseCSVFiles, checkDate, checkRole, checkName } = require("../utils/utils");
+const { parseCSVFiles, checkDate, checkRole } = require("../utils/utils");
 const { addRole, deleteRole } = require('../utils/roles');
 
 module.exports = {
@@ -16,80 +16,99 @@ module.exports = {
 
     //Variables
     await interaction.deferReply();
-    let membersList;
-    let nb_total = 0, nb_changer = 0, nb_coti = 0, nb_non_coti = 0, nb_exception = 0, nb_esta = 0;
     let role_id = interaction.options.getRole('role_id');
-    let bool_cotisant = false;
     let etudiant = parseCSVFiles("./adherent.csv", ";");
 
     // Si l'option role_id n'est pas donnée
-    if (role_id === null) {
+    if (role_id === null){
+      let membersWithRole, membersID, membersName, membersList, prenom_nom, pseudo_discord, tmp;
+
       // Récupération des IDs des rôles
       const {
         Cotisants,          // Les cotisants
         Attente_Cotisant,   // Les non cotisants
         Membre_du_Bureau,   // Les membres du bureau
-        Bureau_Restreints,  // Les membres du bureau restreint
         ESTA,               // Les membres de l'ESTA
+        exception,          // Les membres qui ne sont pas pris en compte
       } = require(`../serveur/roles/role_${interaction.guild.id}.json`);
-      let prenom_nom, pseudo_discord;
-      interaction.guild.members.fetch()
-        .then((members) => {
-          membersList = members.map(m => m);
-          for (let i = 0; i < membersList.length; i++) {
-            nb_total++;
-            if (membersList[i].user.bot || checkRole(membersList[i], Membre_du_Bureau) || checkRole(membersList[i], Bureau_Restreints) || checkRole(membersList[i], ESTA)) {
-              nb_exception++;
-              if (checkRole(membersList[i], Cotisants))
-                nb_coti++;
-              else if (checkRole(membersList[i], Attente_Cotisant))
-                nb_non_coti++;
-              else if (checkRole(membersList[i], ESTA))
-                nb_esta++;
-              else if (!membersList[i].user.bot)
-                nb_changer++;
-            } else {
-              if (!checkName(membersList[i].displayName)) {
-                deleteRole(membersList[i], Cotisants);
-                deleteRole(membersList[i], Attente_Cotisant);
-                nb_changer++;
-              } else {
-                pseudo_discord = membersList[i].displayName;
-                pseudo_discord = pseudo_discord.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                let j = 0;
-                let trouve = false;
-                while (j < etudiant.length && trouve === false) {
-                  prenom_nom = etudiant[j][1] + ' ' + etudiant[j][0];
-                  prenom_nom = prenom_nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                  if (prenom_nom === pseudo_discord)
-                    trouve = true;
-                  else
-                    j++;
-                }
-                if (trouve === true)
-                  bool_cotisant = checkDate(etudiant[j][2]);
-                if (bool_cotisant) {
-                  addRole(membersList[i], Cotisants);
-                  deleteRole(membersList[i], Attente_Cotisant);
-                  nb_coti++;
-                } else {
-                  addRole(membersList[i], Attente_Cotisant);
-                  deleteRole(membersList[i], Cotisants);
-                  nb_non_coti++;
-                }
-                bool_cotisant = false;
-              }
-            }
-          }
-          interaction.editReply(`Sur **${nb_total}** membres:\n> **${nb_coti}** sont cotisants\n> **${nb_non_coti}** sont non cotisants\n> **${nb_changer}** doivent changer de nom\n> **${nb_exception}** sont des exceptions\nLes changements sont en cours, Merci !`);
-        })
-        .catch(console.error);
 
-    // Si l'option role_id est donnée
+      membersWithRole = interaction.guild.roles.cache.get(Attente_Cotisant).members;
+      membersID = membersWithRole.map(m => m.id);
+      membersName = membersWithRole.map(m => m.displayName);
+      membersList = membersWithRole.map(m => m);
+
+      await interaction.followUp(`Il y a ${membersName.length} membres avec le role "Non cotisant"`);
+
+      for (let i = 0; i < membersID.length; i++) {
+        if (checkRole(membersList[i], Membre_du_Bureau))
+          continue;
+        if (checkRole(membersList[i], ESTA))
+          continue;
+        if (checkRole(membersList[i], exception))
+          continue;
+
+        pseudo_discord = membersName[i];
+        pseudo_discord = pseudo_discord.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let j = 0;
+        let trouve = false;
+        while (j < etudiant.length && trouve === false) {
+          prenom_nom = etudiant[j][1] + ' ' + etudiant[j][0];
+          prenom_nom = prenom_nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          if (prenom_nom === pseudo_discord)
+            trouve = true;
+          else
+            j++;
+        }
+        if (trouve === true) {
+          if (checkDate(etudiant[j][2]) === true) {
+            membersList[i].roles.add(Cotisants);
+            membersList[i].roles.remove(Attente_Cotisant);
+          }
+        }
+      }
+
+
+      membersWithRole = interaction.guild.roles.cache.get(Cotisants).members;
+      membersID = membersWithRole.map(m => m.id);
+      membersName = membersWithRole.map(m => m.displayName);
+      membersList = membersWithRole.map(m => m);
+
+      await interaction.followUp(`Il y a ${membersName.length} membres avec le role "Cotisant"`);
+
+      for (let i = 0; i < membersID.length; i++) {
+        if (checkRole(membersList[i], Membre_du_Bureau))
+          continue;
+        if (checkRole(membersList[i], ESTA))
+          continue;
+        if (checkRole(membersList[i], exception))
+          continue;
+
+        pseudo_discord = membersName[i];
+        pseudo_discord = pseudo_discord.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let j = 0;
+        let trouve = false;
+        while (j < etudiant.length && trouve === false) {
+          prenom_nom = etudiant[j][1] + ' ' + etudiant[j][0];
+          prenom_nom = prenom_nom.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+          if (prenom_nom === pseudo_discord)
+            trouve = true;
+          else
+            j++;
+        }
+        if (trouve === true) {
+          if (checkDate(etudiant[j][2]) === false) {
+            membersList[i].roles.add(Attente_Cotisant);
+            membersList[i].roles.remove(Cotisants);
+          }
+        } else {
+          membersList[i].roles.add(Attente_Cotisant);
+          membersList[i].roles.remove(Cotisants);
+        }
+      }
     } else {
       interaction.guild.members.fetch()
         .then((members) => {
-          membersList = members.map(m => m);
+          let membersList = members.map(m => m);
           for (let i = 0; i < membersList.length; i++) {
             if (checkRole(membersList[i], role_id.id))
               nb_total++;
