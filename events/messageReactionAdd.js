@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { log, checkName} = require('../utils/utils');
+const { log, checkName, checkRole} = require('../utils/utils');
 
 module.exports = {
   name: Events.MessageReactionAdd,
@@ -31,14 +31,17 @@ module.exports = {
     if (reaction.message.channel.id === ligne_de_départ) {
       if (reaction.emoji.name === '👍') {
         log(`${user.tag} a réagi au message de règles`, channel_logs);
-        const { Attente_Cotisant } = require(`../serveur/roles/role_${reaction.message.guild.id}.json`);
+        const { Attente_Cotisant, Membre_du_Bureau } = require(`../serveur/roles/role_${reaction.message.guild.id}.json`);
 
         // Mise en place des rôles
-        if (Attente_Cotisant === undefined) {
+        if (Attente_Cotisant === undefined || Membre_du_Bureau === undefined) {
           log("Aucun Role 'Attente Cotisant'", channel_logs);
         } else {
           let member = await reaction.message.guild.members.fetch(user.id);
-          if (!checkName(member.displayName)) {
+          if (checkRole(member, Membre_du_Bureau)) {
+            await member.send("Salut, t'es un membre du bureau je crois !!\nArrête de jouer avec le bot et retourne à ton poste de " + member.displayName.split(' - ')[1]);
+            await reaction.users.remove(member.id);
+          } else if (!checkName(member.displayName)) {
             await member.send("Salut, je crois que tu n'as pas bien lu, renomme toi correctement Prénom Nom, sans ta promo et sans ton surnom !! ");
             await reaction.users.remove(member.id);
           } else {
