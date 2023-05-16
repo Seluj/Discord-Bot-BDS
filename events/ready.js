@@ -17,8 +17,9 @@ module.exports = {
     channelFiles(guild);
     log(`Ready! Logged in as ${client.user.tag}`);
 
-    const g = await client.guilds.fetch('1040600799434260502');
-    const channel = g.channels.cache.get('1061602590938382376');
+
+    const g = await client.guilds.fetch('754741001041608725');
+    const channel = g.channels.cache.get('754741001469558805');
 
     let message;
     if (channel.isTextBased()) {
