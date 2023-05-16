@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits  } = require('discord.js');
-const { parseCSVFiles, affichageJoueur, checkDate } = require("../utils/utils");
+const { parseCSVFiles, affichageJoueur, checkDate, log} = require("../utils/utils");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -33,6 +33,16 @@ module.exports = {
     let str = "";   // Résultat final avec tous les étudiants qui correspondent à la recherche
     let nb = 0;     // Nombre d'étudiants trouvé
 
+
+    const { logs } = require(`../serveur/channels/channels_${interaction.guild.id}.json`);
+
+    let channel_logs = null;
+    if (logs === undefined) {
+      log("Aucun salon 'logs'", null);
+    } else {
+      channel_logs = interaction.guild.channels.cache.get(logs);
+    }
+
     //Construction du résultat en fonction du nom ou du prénom
 
       // Test pour la subCommand "prenom"
@@ -53,6 +63,7 @@ module.exports = {
     } else if (interaction.options.getSubcommand() === "nom") {
       opt = interaction.options.getString('nom');
       await interaction.reply({content: `Recherche du nom : ${opt}`, ephemeral:true});
+      log(`Recherche du nom : ${opt}`, channel_logs);
       opt = opt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (let i=0; i<etudiant.length; i++) {
         data = etudiant[i][0];
@@ -76,6 +87,7 @@ module.exports = {
     // Écriture du résultat
     for (let i = 0; i < tmp_str.length; i++) {
       await interaction.followUp({content: tmp_str[i], ephemeral: true});
+      log(tmp_str[i], channel_logs);
     }
   },
 };
