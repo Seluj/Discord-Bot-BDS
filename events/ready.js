@@ -1,7 +1,4 @@
 const { Events } = require('discord.js');
-const { deleteOldestFiles, log } = require("../utils/utils");
-const { channelFiles } = require("../utils/channels_files");
-const { rolesFiles } = require("../utils/roles_files");
 
 module.exports = {
   name: Events.ClientReady,

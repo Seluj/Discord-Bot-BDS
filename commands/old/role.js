@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { parseCSVFiles, checkDate, checkRole } = require("../../utils/utils");
-const { addRole, deleteRole } = require('../../utils/roles');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -21,7 +20,7 @@ module.exports = {
 
     // Si l'option role_id n'est pas donnée
     if (role_id === null){
-      let membersWithRole, membersID, membersName, membersList, prenom_nom, pseudo_discord, tmp;
+      let membersWithRole, membersID, membersName, membersList, prenom_nom, pseudo_discord;
 
       // Récupération des IDs des rôles
       const {
