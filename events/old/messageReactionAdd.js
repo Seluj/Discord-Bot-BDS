@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { log, checkName, checkRole} = require('../utils/utils');
+const { log, checkName, checkRole} = require('../../utils/utils');
 
 module.exports = {
   name: Events.MessageReactionAdd,

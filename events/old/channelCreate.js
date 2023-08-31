@@ -1,6 +1,6 @@
 const { Events } = require('discord.js');
-const { channelFiles } = require("../utils/channels_files");
-const { log } = require('../utils/utils');
+const { channelFiles } = require("../../utils/channels_files");
+const { log } = require('../../utils/utils');
 
 module.exports = {
   name: Events.ChannelCreate,

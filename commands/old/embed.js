@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, AttachmentBuilder} = require('discord.js');
+const {SlashCommandBuilder, AttachmentBuilder} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -18,7 +18,7 @@ module.exports = {
     ),
   async execute(interaction) {
     if (interaction.options.getSubcommand() === "rule") {
-      interaction.reply({content: "Voici votre message:", ephemeral:true});
+      interaction.reply({content: "Voici votre message:", ephemeral: true});
       const file = new AttachmentBuilder('./logo/logo1.png')
 
       const exampleEmbed = {
@@ -55,11 +55,11 @@ module.exports = {
         color: 16172079
       };
 
-      interaction.channel.send({ embeds: [exampleEmbed], files: [file] }).then(sentMessage => {
+      interaction.channel.send({embeds: [exampleEmbed], files: [file]}).then(sentMessage => {
         sentMessage.react('👍');
       });
     } else if (interaction.options.getSubcommand() === "sport") {
-      interaction.reply({content: "Voici votre message:", ephemeral:true});
+      interaction.reply({content: "Voici votre message:", ephemeral: true});
       const file = new AttachmentBuilder('./logo/logo1.png')
 
       const exampleEmbed = {
@@ -110,7 +110,7 @@ module.exports = {
         ]
       };
 
-      interaction.channel.send({ embeds: [exampleEmbed], files: [file] });
+      interaction.channel.send({embeds: [exampleEmbed], files: [file]});
     } else {
 
     }

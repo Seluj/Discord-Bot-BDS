@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits  } = require('discord.js');
-const { parseCSVFiles, affichageJoueur, checkDate, log} = require("../utils/utils");
+const { parseCSVFiles, affichageJoueur, checkDate, log} = require("../../utils/utils");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -25,7 +25,7 @@ module.exports = {
             .setDescription('Nom de la personne')
             .setRequired(true))),
   async execute(interaction) {
-    // Liste des étudiants contenu dans le fichier donné
+    // Liste des étudiants contenus dans le fichier donné
     let etudiant = parseCSVFiles("./adherent.csv", ";");
     // Variables
     let opt;        // option : option entrée par l'utilisateur

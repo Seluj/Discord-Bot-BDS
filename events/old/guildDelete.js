@@ -1,6 +1,6 @@
 const { Events } = require('discord.js');
 const fs = require('node:fs');
-const { log } = require('../utils/utils');
+const { log } = require('../../utils/utils');
 
 module.exports = {
   name: Events.GuildDelete,

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { parseCSVFiles, checkDate, checkRole } = require("../utils/utils");
-const { addRole, deleteRole } = require('../utils/roles');
+const { parseCSVFiles, checkDate, checkRole } = require("../../utils/utils");
+const { addRole, deleteRole } = require('../../utils/roles');
 
 module.exports = {
   data: new SlashCommandBuilder()
