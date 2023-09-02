@@ -1,5 +1,6 @@
 const {Events} = require('discord.js');
 const fs = require("node:fs");
+const {log} = require("../utils/utils");
 
 
 module.exports = {
@@ -30,10 +31,11 @@ module.exports = {
         if (err) throw err
       });
 
-      if (data%4 === 0) {
-        let channel = newPresence.guild.channels.fetch("900660051310678046");
-        channel = newPresence.guild.channels.cache.get("900660051310678046");
-        channel.send("bds!restart");
+      if (data % 4 === 0) {
+        newPresence.guild.channels.fetch("900660051310678046").then(r =>
+          r.send("bds!restart")
+        );
+        log("BDS_v2 Restart", newPresence.guild.channels.cache.get("1070807024851497020"));
       }
     }
 
