@@ -4,3 +4,5 @@ node_modules/*
 *.csv
 n
 config.json
+.idea
+logs
